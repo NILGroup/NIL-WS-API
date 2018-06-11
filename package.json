@@ -1,0 +1,8 @@
+{
+  "name": "idilyco-api",
+  "version": "0.1.0",
+  "description": "Descripcion de la API de Idilyco",
+  "devDependencies": {
+    "redoc-cli": "^0.4.0"
+  }
+}
