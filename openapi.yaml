@@ -1,0 +1,79 @@
+openapi: 3.0.1
+
+info:
+  title: Idilyco API
+  description: |
+    Este documento describe la _API_ del proyecto Idylico, según el estándar OpenAPI 3.0.1
+  version: 0.1.0
+
+tags:
+  - name: PT1
+    description: Paquete 1 del proyecto.
+  - name: grafeno
+    description: Herramienta de grafos semánticos.
+    externalDocs:
+      description: Más información sobre la librería de generación de resúmenes.
+      url: https://grafeno.readthedocs.io/en/latest/
+
+paths:
+  /summary_es:
+    summary: Servicios de resúmenes.
+    description: |
+      Generación de resúmenes, en distintos idiomas, proporcionados por la herramienta Grafeno.
+    servers:
+      - url: https://sesat.fdi.ucm.es/grafeno/run
+    post:
+      summary: Crea un resumen a partir de un texto
+      description: |
+        Dado un texto libre, genera un resumen extractivo en formato texto que contiene la información más relevante del texto original.
+      tags:
+        - grafeno
+        - PT1
+      requestBody:
+        description: El texto del que se solicita el resumen, o un objeto JSON con parámetros para un control de la generación.
+        required: true
+        content:
+          text/plain:
+            schema: 
+              type: string
+            example: |
+              El huracán Gilbert arrasó la costa dominicana.
+          application/json:
+            schema: 
+              type: object
+              required:
+                - text
+              properties:
+                text:
+                  type: string
+                summary_length:
+                  type: integer
+                  description: El número aproximado de palabras que queremos que tenga el resumen.
+                  minimum: 0
+                  default: 100
+            example:
+              text: "El huracán Gilbert. El huracán Inma. Una tormenta."
+              summary_length: 3
+      parameters:
+        - name: idioma
+          in: query
+          description: El idioma del texto del que se solicita el resumen.
+          schema:
+            type: string
+            default: es
+            enum:
+              - es
+              - en
+              - ca
+      responses:
+        '200':
+          description: El resumen ha sido generado con éxito.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  text:
+                    type: string
+                    description: El resumen generado.
+
