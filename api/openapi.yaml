@@ -3,7 +3,7 @@ openapi: 3.0.1
 info:
   title: Idilyco API
   description: |
-    Este documento describe la _API_ del proyecto Idylico, según el estándar OpenAPI 3.0.1
+    Este documento describe la _API_ del proyecto Idilyco, según el estándar OpenAPI 3.0.1
   version: 0.1.0
 
 tags:
@@ -29,56 +29,5 @@ servers:
 
 paths:
   /resumen/{idioma}:
-    summary: Servicios de resúmenes.
-    description: |
-      Generación de resúmenes, en distintos idiomas, proporcionados por la herramienta Grafeno.
-    post:
-      summary: Crea un resumen a partir de un texto
-      description: |
-        Dado un texto libre, genera un resumen extractivo en formato texto que contiene la información más relevante del texto original.
-      tags:
-        - grafeno
-        - PT2
-      requestBody:
-        description: Un objeto JSON con el texto a resumir y parámetros para controlar la generación del resumen.
-        required: true
-        content:
-          application/json:
-            schema: 
-              type: object
-              required:
-                - text
-              properties:
-                text:
-                  type: string
-                summary_length:
-                  type: integer
-                  description: El número aproximado de palabras que queremos que tenga el resumen.
-                  minimum: 0
-                  default: 100
-            example:
-              text: |
-                Madrid es un municipio y ciudad de España. Es la capital del Estado y de la Comunidad de Madrid. La ciudad, que tiene categoría histórica de villa, es también conocida como la Villa y Corte. Dentro del término municipal de Madrid, el más poblado de España, viven 3 182 981 personas empadronadas, según el INE de 2017. El área metropolitana de Madrid tiene una población de 6 543 031 habitantes, por lo que es la tercera o cuarta área metropolitana de la Unión Europea, según la fuente, por detrás de las de París y Londres, y en algunas fuentes detrás también de la Región del Ruhr, así como la tercera ciudad más poblada de la Unión Europea, por detrás de Berlín y Londres.
-              summary_length: 50
-      parameters:
-        - name: idioma
-          in: path
-          required: true
-          description: El idioma del texto del que se solicita el resumen.
-          schema:
-            type: string
-            enum: [ es, en, ca ]
-      responses:
-        '200':
-          description: El resumen ha sido generado con éxito.
-          content:
-            application/json:
-              schema: 
-                type: object
-                properties:
-                  ok:
-                    type: boolean
-                  result:
-                    type: string
-                    description: El resumen generado.
+    $ref: 'grafeno.yaml#/Resumenes'
 
