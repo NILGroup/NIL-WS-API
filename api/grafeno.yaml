@@ -43,7 +43,7 @@ Resumenes:
         description: El resumen ha sido generado con éxito.
         content:
           application/json:
-            schema: 
+            schema:
               type: object
               properties:
                 ok:

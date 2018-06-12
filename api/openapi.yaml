@@ -18,6 +18,17 @@ tags:
 
       Responsable: Alberto
 
+  - name: PT3
+    description: |
+      ## CAA
+      
+      Responsable: Raquel
+  - name: PT4
+    description: |
+      ## Emociones
+      
+      Responsable: Virginia
+
   - name: grafeno
     description: Herramienta de grafos semánticos.
     externalDocs:
@@ -28,6 +39,8 @@ servers:
   - url: http://mistela.fdi.ucm.es/idilyco-api/v1
 
 paths:
+  /sencilla/{palabra}:
+    $ref: 'simplificacion.yaml#/Sencilla'
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
 

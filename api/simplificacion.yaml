@@ -1,0 +1,22 @@
+Sencilla:
+  summary: Servicio para comprobar si una palabra es sencilla.
+  get:
+    tags:
+      - PT1
+    parameters:
+      - name: palabra
+        in: path
+        required: true
+        description: Palabra a comprobar si es sencilla.
+        schema:
+          type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                palabraSencilla:
+                  type: boolean
+                  description: Indica si la palabra es sencilla o no.
