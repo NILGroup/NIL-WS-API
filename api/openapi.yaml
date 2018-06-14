@@ -41,6 +41,16 @@ servers:
 paths:
   /sencilla/{palabra}:
     $ref: 'simplificacion.yaml#/Sencilla'
+  /sinonimos/{palabra}:
+    $ref: 'simplificacion.yaml#/Sinonimos'
+  /antonimos/{palabra}:
+    $ref: 'simplificacion.yaml#/Antonimos'
+  /definiciones/{palabra}:
+    $ref: 'simplificacion.yaml#/Definiciones'
+  /traducciones/{palabra}:
+    $ref: 'simplificacion.yaml#/Traducciones'
+  /conversion/{palabra}:
+    $ref: 'simplificacion.yaml#/Conversion'
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
 

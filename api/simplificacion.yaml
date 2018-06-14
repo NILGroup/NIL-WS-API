@@ -1,15 +1,20 @@
+components:
+  parameters:
+    PalabraEnUrl:
+      name: palabra
+      description: una palabra en castellano
+      in: path
+      required: true
+      schema:
+        type: string
+
 Sencilla:
-  summary: Servicio para comprobar si una palabra es sencilla.
   get:
+    summary: Servicio para comprobar si una palabra es sencilla.
     tags:
       - PT1
     parameters:
-      - name: palabra
-        in: path
-        required: true
-        description: Palabra a comprobar si es sencilla.
-        schema:
-          type: string
+      - $ref: "#/components/parameters/PalabraEnUrl"
     responses:
       '200':
         content:
@@ -20,3 +25,103 @@ Sencilla:
                 palabraSencilla:
                   type: boolean
                   description: Indica si la palabra es sencilla o no.
+Sinonimos:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de sinónimos.
+    tags:
+      - PT1
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sinonimos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sinonimo: 
+                        type: string
+Antonimos:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de antónimos.
+    tags:
+      - PT1
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                antonimos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      antonimo: 
+                        type: string
+Definiciones:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de definiciones.
+    tags:
+      - PT1
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                definiciones:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      definicion: 
+                        type: string
+Traducciones:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de traducciones posibles al inglés.
+    tags:
+      - PT1
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                traducciones:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      traduccion:
+                        type: string
+Conversion:
+  get:
+    summary: Dada una palabra en castellano, devuelve un sinónimo que sea considerado palabra fácil.
+    tags:
+      - PT1
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conversion:
+                  type: string

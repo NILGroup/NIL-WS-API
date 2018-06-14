@@ -1,14 +1,11 @@
 Resumenes:
-  summary: Servicios de resúmenes.
-  description: |
-    Generación de resúmenes, en distintos idiomas, proporcionados por la herramienta Grafeno.
   post:
     summary: Crea un resumen a partir de un texto
     description: |
       Dado un texto libre, genera un resumen extractivo en formato texto que contiene la información más relevante del texto original.
     tags:
-      - grafeno
       - PT2
+      - grafeno
     requestBody:
       description: Un objeto JSON con el texto a resumir y parámetros para controlar la generación del resumen.
       required: true
