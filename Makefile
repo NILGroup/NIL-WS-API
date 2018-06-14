@@ -18,7 +18,11 @@ dist/api: $(wildcard api/**) | dist
 dist:
 	mkdir -p dist
 
-.PHONY: clean
+.PHONY: clean nginx
+
+nginx:
+	m4 gateway/nginx.m4 > /etc/nginx/sites-available/idilyco-gateway
+	systemctl reload nginx
 
 clean:
 	rm -rf dist
