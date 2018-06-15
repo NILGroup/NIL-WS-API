@@ -16,8 +16,8 @@ los servicios de Idilyco.
 
 - `api`: Especificación de la API en texto. Está escrita conforme al estándar
   [OpenAPI], usando el formato [yaml].
-- `web`: Código para la documentación web de la API, generada con [swagger-ui] a
-  partir de la especificación.
+- `web`: Código para la documentación web de la API, generada con [swagger-ui] y
+  [ReDoc] (para comparar) a partir de la especificación.
 - `gateway`: Plantilla [m4] para generar un servidor gateway con [nginx]. Este
   servidor expone una API unificada (especificada en este repositorio) que da
   acceso a los distintos servicios de Idilyco.
@@ -49,10 +49,11 @@ mismo servidor que la UI, se puede además probar la API directamente en la web.
 - Raquel Hervás <raquelhb@fdi.ucm.es>
 - Antonio F. G. Sevilla <afgs@ucm.es>
 
-[OpenAPI]: https://github.com/OAI/OpenAPI-Specification
-[yaml]: http://yaml.org/
-[swagger-ui]: https://swagger.io/tools/swagger-ui/
 [m4]: https://www.gnu.org/software/m4/manual/m4.html
-[nginx]: https://nginx.org/
 [Make]: https://www.gnu.org/software/make/
+[nginx]: https://nginx.org/
 [nodejs]: https://nodejs.org/en/
+[OpenAPI]: https://github.com/OAI/OpenAPI-Specification
+[ReDoc]: https://github.com/Rebilly/ReDoc
+[swagger-ui]: https://swagger.io/tools/swagger-ui/
+[yaml]: http://yaml.org/

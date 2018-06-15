@@ -1,22 +1,29 @@
-all: dist/index.html dist/swagger-ui.css dist/api dist/main.js | dist
+DIST:=dist
+ALL:=index.html swagger-ui.css api main.js redoc.html
+
+all: $(addprefix $(DIST)/, $(ALL)) | $(DIST)
 	rm -rf /var/www/idilyco-api/*
 	cp -R dist/* /var/www/idilyco-api
 
-dist/main.js: web/main.js | dist
+$(DIST)/main.js: web/main.js | $(DIST)
 	webpack web/main.js --mode=production
 
-dist/index.html: web/index.html | dist
+$(DIST)/index.html: web/index.html | $(DIST)
 	cp $< $@
 
-dist/swagger-ui.css: node_modules/swagger-ui/dist/swagger-ui.css | dist
+$(DIST)/swagger-ui.css: node_modules/swagger-ui/dist/swagger-ui.css | $(DIST)
 	cp $< $@
 
-dist/api: $(wildcard api/**) | dist
+$(DIST)/api: $(wildcard api/**) | $(DIST)
 	rm -rf $@
 	cp -R api $@
 
-dist:
-	mkdir -p dist
+$(DIST)/redoc.html: $(wildcard api/**) | $(DIST)
+	npx redoc-cli bundle api/openapi.yaml
+	mv redoc-static.html $@
+
+$(DIST):
+	mkdir -p $(DIST)
 
 .PHONY: clean nginx
 
@@ -25,4 +32,4 @@ nginx:
 	systemctl reload nginx
 
 clean:
-	rm -rf dist
+	rm -rf $(DIST)
