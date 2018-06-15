@@ -23,6 +23,8 @@ tags:
       ## CAA
       
       Responsable: Raquel
+
+      Existe un editor para trabajar con pictos, *PICTAR*, que está ya en marcha: http://hypatia.fdi.ucm.es/pictar/
   - name: PT4
     description: |
       ## Emociones
@@ -53,4 +55,8 @@ paths:
     $ref: 'simplificacion.yaml#/Conversion'
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
+  /picto/{palabra}:
+    $ref: 'caa.yaml#/PictoPalabra'
+  /pictos/{frase}:
+    $ref: 'caa.yaml#/PictoFrase'
 
