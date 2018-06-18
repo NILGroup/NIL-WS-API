@@ -17,7 +17,6 @@ tags:
       ## Resúmenes
 
       Responsable: Alberto
-
   - name: PT3
     description: |
       ## CAA
@@ -31,11 +30,23 @@ tags:
       
       Responsable: Virginia
 
+      - Ya está en marcha la API de servicios para obtener las emociones de una
+        palabra, una frase o un texto http://sesat.fdi.ucm.es/api/ o
+        http://sesat.fdi.ucm.es/apiEmoTraductor/ - También hemos implementado
+        EmoTraductor, un intérprete de las emociones transmitidas por un texto.
+        http://sesat.fdi.ucm.es/traductor/
   - name: grafeno
     description: Herramienta de grafos semánticos.
     externalDocs:
       description: Más información sobre la librería de generación de resúmenes.
       url: https://grafeno.readthedocs.io/en/latest/
+  - name: EmoTraductor
+    description: |
+      Aplicación web intérprete de las emociones transmitidas por un texto,
+      disponible en: http://sesat.fdi.ucm.es/traductor/.
+    externalDocs:
+      description: Documentación original de la API.
+      url: http://sesat.fdi.ucm.es/apiEmoTraductor/
 
 servers:
   - url: http://mistela.fdi.ucm.es/idilyco-api/v1
@@ -59,4 +70,14 @@ paths:
     $ref: 'caa.yaml#/PictoPalabra'
   /pictos/{frase}:
     $ref: 'caa.yaml#/PictoFrase'
+  /emocion/mayoritaria/{palabra}:
+    $ref: 'emociones.yaml#/MayoritariaPalabra'
+  /emocion/consensuada/{palabra}:
+    $ref: 'emociones.yaml#/ConsensuadaPalabra'
+  /emocion/grados/{palabra}:
+    $ref: 'emociones.yaml#/GradosPalabra'
+  /emocion/mayoritaria/frase:
+    $ref: 'emociones.yaml#/MayoritariaFrase'
+  /emocion/grados/frase:
+    $ref: 'emociones.yaml#/GradosFrase'
 

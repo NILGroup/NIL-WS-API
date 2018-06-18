@@ -1,0 +1,152 @@
+components:
+  parameters:
+    PalabraEnQuery:
+      name: palabra
+      description: una palabra en castellano
+      in: query
+      required: true
+      schema:
+        type: string
+  schemas:
+    Emocion:
+      type: string
+      enum:
+        - Tristeza
+        - Miedo
+        - Alegria
+        - Enfado
+        - Asco
+    EmocionMayoritaria:
+      type: object
+      properties:
+        grado:
+          type: number
+          minimum: 0
+          description: El grado con el que se ha elegido la emoción mayoritaria.
+        emocion:
+          type: array
+          description: Lista de las emociones mayortiarias. 
+          items:
+            $ref: "#/components/schemas/Emocion"
+    EmocionesMayoritarias:
+      type: object
+      properties:
+        grado:
+          type: number
+          minimum: 0
+          description: El grado con el que se ha elegido la emoción mayoritaria.
+        emociones:
+          type: array
+          description: Lista de las emociones mayortiarias. 
+          items:
+            $ref: "#/components/schemas/Emocion"
+    GradosEmociones:
+      type: object
+      properties:
+        Tristeza:
+          type: number
+        Miedo:
+          type: number
+        Alegria:
+          type: number
+        Enfado:
+          type: number
+        Asco:
+          type: number
+    FraseEnBody:
+      type: object
+      required:
+        - frase
+      properties:
+        frase:
+          type: string
+
+MayoritariaPalabra:
+  get:
+    summary: Devuelve la emoción con mayor grado, junto con el grado, dada una palabra. Si la palabra no existe en el diccionario afectivo, devuelve una lista de emociones vacía y el grado como 0.
+    tags:
+      - PT4
+      - EmoTraductor
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnQuery"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmocionesMayoritarias"
+ConsensuadaPalabra:
+  get:
+    summary: Devuelve la emoción elegida por todos los evaluadores como emoción para la palabra. Solo devuelve emoción si todos los evaluadores están de acuerdo, por lo que devolverá una emoción si el grado del resto es 0. En caso de no existir la palabra en el diccionario lo indica.
+    tags:
+      - PT4
+      - EmoTraductor
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnQuery"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consensuada:
+                  type: string
+                  enum:
+                    - Tristeza
+                    - Miedo
+                    - Alegria
+                    - Enfado
+                    - Asco
+                    - No hay emoción consensuada.
+                    - No sea ha encontrado la palabra. Asegurese de haberla escrito bien.
+GradosPalabra:
+  get:
+    summary: Devuelve la lista de emociones para una palabra con sus respectivos grados. Si la palabra no existe devuelve ceros para cada emoción.
+    tags:
+      - PT4
+      - EmoTraductor
+    parameters:
+      - $ref: "#/components/parameters/PalabraEnQuery"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradosEmociones"
+MayoritariaFrase:
+  post:
+    summary: Devuelve la emoción con mayor grado junto con su grado, dada una frase. En caso de tener más de una mayoritaria, devuelve en la lista todas las emociones. En caso de no tener mayoritaria devuelve el grado a cero y una lista vacía.
+    tags:
+      - PT4
+      - EmoTraductor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FraseEnBody"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmocionMayoritaria"
+GradosFrase:
+  post:
+    summary: Devuelve la lista de emociones para una frase con sus respectivos grados.
+    tags:
+      - PT4
+      - EmoTraductor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FraseEnBody"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradosEmociones"
