@@ -80,4 +80,10 @@ paths:
     $ref: 'emociones.yaml#/MayoritariaFrase'
   /emocion/grados/frase:
     $ref: 'emociones.yaml#/GradosFrase'
+  /emocion/mayoritaria/texto:
+    $ref: 'emociones.yaml#/MayoritariaTexto'
+  /emocion/grados/texto:
+    $ref: 'emociones.yaml#/GradosTexto'
+  /emocion/palabras/texto:
+    $ref: 'emociones.yaml#/PalabrasEmocionales'
 

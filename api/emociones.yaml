@@ -13,7 +13,7 @@ components:
       enum:
         - Tristeza
         - Miedo
-        - Alegria
+        - Alegría
         - Enfado
         - Asco
     EmocionMayoritaria:
@@ -60,6 +60,13 @@ components:
       properties:
         frase:
           type: string
+    TextoEnBody:
+      type: object
+      required:
+        - texto
+      properties:
+        texto:
+          type: string
 
 MayoritariaPalabra:
   get:
@@ -95,7 +102,7 @@ ConsensuadaPalabra:
                   enum:
                     - Tristeza
                     - Miedo
-                    - Alegria
+                    - Alegría
                     - Enfado
                     - Asco
                     - No hay emoción consensuada.
@@ -150,3 +157,99 @@ GradosFrase:
           application/json:
             schema:
               $ref: "#/components/schemas/GradosEmociones"
+MayoritariaTexto:
+  post:
+    summary: Devuelve la emoción con mayor grado, junto con el grado, dado un texto.
+    tags:
+      - PT4
+      - EmoTraductor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TextoEnBody"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmocionesMayoritarias"
+            examples:
+              Estandar:
+                summary: Respuesta habitual.
+                description: |
+                  En caso de tener emoción mayoritaria: "Me gusta ir al parque. Es muy divertido."
+                value:
+                  grado: 4.39
+                  emociones: [ Alegría ]
+              Ninguna:
+                summary: Si no hay emocion mayoritaria.
+                description: |
+                  En caso de no tener emoción mayoritaria: "No tengo nada. Nada de nada."
+                value:
+                  grado: 0
+                  emociones: []
+              Multiple:
+                summary: Si hay varias emociones mayoritarias.
+                description: |
+                  En caso de tener más de una emoción mayoritaria, es decir que el grado de dos emociones sea el máximo. 
+                value:
+                  grado: 3.47
+                  emociones: [ Miedo, Alegría ]
+GradosTexto:
+  post:
+    summary: Devuelve la lista de emociones de un texto con sus respectivos grados.
+    tags:
+      - PT4
+      - EmoTraductor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TextoEnBody"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradosEmociones"
+PalabrasEmocionales:
+  post:
+    summary: Dado un texto devuelve los grados de este junto con una lista de palabras emocionales.
+    tags:
+      - PT4
+      - EmoTraductor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              a:
+                type: string
+                description: Es un texto, frase o palabra a evaluar.
+                required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              description: |
+                Devuelve en el JSON con dos campos "emociones" que representa los grados emocionales del texto introducido y "palabras" que es una lista con todas las palabras 'emocionales' del texto; todas aquellas que se encuentran en la stoplist del servicio aunque no tenga grados asignados.
+              properties:
+                emociones:
+                  type: array
+                  description: Los grados de las distintas emociones
+                  items:
+                    type: string
+                  example: ["1.42", "2.38", "2.74", "1.28", "1.41"]
+                palabras:
+                  type: array
+                  description: Las palabras emocionales.
+                  items:
+                    type: string
+                  example: ["pequeño", "cocodrilo", "entonar", "cantares", "usa", "aguas", "nilo", "notas", "musicales"]
