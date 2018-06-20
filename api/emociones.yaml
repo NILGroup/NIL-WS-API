@@ -1,9 +1,9 @@
 components:
   parameters:
-    PalabraEnQuery:
+    PalabraEnPath:
       name: palabra
       description: una palabra en castellano
-      in: query
+      in: path
       required: true
       schema:
         type: string
@@ -75,7 +75,7 @@ MayoritariaPalabra:
       - PT4
       - EmoTraductor
     parameters:
-      - $ref: "#/components/parameters/PalabraEnQuery"
+      - $ref: "#/components/parameters/PalabraEnPath"
     responses:
       '200':
         content:
@@ -89,7 +89,7 @@ ConsensuadaPalabra:
       - PT4
       - EmoTraductor
     parameters:
-      - $ref: "#/components/parameters/PalabraEnQuery"
+      - $ref: "#/components/parameters/PalabraEnPath"
     responses:
       '200':
         content:
@@ -114,7 +114,7 @@ GradosPalabra:
       - PT4
       - EmoTraductor
     parameters:
-      - $ref: "#/components/parameters/PalabraEnQuery"
+      - $ref: "#/components/parameters/PalabraEnPath"
     responses:
       '200':
         content:

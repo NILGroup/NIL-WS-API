@@ -4,19 +4,24 @@ dnl Fichero de configuración de un gateway NGINX para servir como portal de
 dnl todos los servicios de Idilyco
 
 define(`SERVIDOR', mistela.fdi.ucm.es)
+define(`PATH_API', idilyco-api/v1)
 
 define(`PROXY',
     location /$1 {
         proxy_pass $2;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-For $remote_addr;
+        dnl
+        dnl El servidor de emociones no acepta estos headers
+        dnl
+        dnl proxy_set_header Upgrade $http_upgrade;
+        dnl proxy_set_header Connection "upgrade";
+        dnl proxy_set_header Host $http_host;
+        dnl proxy_set_header X-Forwarded-For $remote_addr;
+        $3
     }
 )
 
-define(`IDAPI',PROXY(idilyco-api/v1/$1,$2))
+define(`IDY_API',PROXY(PATH_API()/$1,$2,$3))
     
 divert
 
@@ -31,16 +36,27 @@ server {
 
     dnl PT1 (simplificacion)
 
-    IDAPI(sencilla, http://sesat.fdi.ucm.es:8080/servicios/rest/palabras/json)
-    IDAPI(sinonimos, http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json)
-    IDAPI(antonimos, http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/json)
-    IDAPI(definiciones, http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/json)
-    IDAPI(traducciones, http://sesat.fdi.ucm.es:8080/servicios/rest/ingles/json)
-    IDAPI(conversion, http://sesat.fdi.ucm.es:8080/servicios/rest/conversion/json)
+    define(`SIMPLE_REST_API', `http://sesat.fdi.ucm.es:8080/servicios/rest')
+    IDY_API(sencilla, SIMPLE_REST_API()/palabras/json)
+    IDY_API(sinonimos, SIMPLE_REST_API()/sinonimos/json)
+    IDY_API(antonimos, SIMPLE_REST_API()/antonimos/json)
+    IDY_API(definiciones, SIMPLE_REST_API()/definicion/json)
+    IDY_API(traducciones, SIMPLE_REST_API()/ingles/json)
+    IDY_API(conversion, SIMPLE_REST_API()/conversion/json)
 
     dnl PT2 (resumenes)
 
-    IDAPI(resumen/es, https://sesat.fdi.ucm.es/grafeno/run/summary_es)
+    IDY_API(resumen/es, https://sesat.fdi.ucm.es/grafeno/run/summary_es)
+
+    dnl PT4 (emociones)
+    
+    define(`EMOCION_PALABRA_API', IDY_API(emocion/$1,
+        http://sesat.fdi.ucm.es,
+        `rewrite ^.+/([^/]+)$ /emociones/palabra/$2?palabra=``$''1 break;'
+    ))
+    EMOCION_PALABRA_API(mayoritaria, mayoritariaEmo) 
+    EMOCION_PALABRA_API(consensuada, consensuadaEmo) 
+    EMOCION_PALABRA_API(grados, gradosEmo) 
 
 }
 
