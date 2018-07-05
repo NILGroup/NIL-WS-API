@@ -4,10 +4,10 @@ dnl Fichero de configuración de un gateway NGINX para servir como portal de
 dnl todos los servicios de Idilyco
 
 define(`SERVIDOR', mistela.fdi.ucm.es)
-define(`PATH_API', idilyco-api/v1)
+define(`ENVIRONMENT', dev)
 
 define(`PROXY',
-    location /$1 {
+    location $1 {
         proxy_pass $2;
         proxy_http_version 1.1;
         dnl
@@ -21,7 +21,7 @@ define(`PROXY',
     }
 )
 
-define(`IDY_API',PROXY(PATH_API()/$1,$2,$3))
+define(`IDY_API',PROXY(API_PATH()/$1,$2,$3))
     
 divert
 
@@ -47,6 +47,19 @@ server {
     dnl PT2 (resumenes)
 
     IDY_API(resumen/es, https://sesat.fdi.ucm.es/grafeno/run/summary_es)
+
+    ifelse(ENVIRONMENT, `dev', `lua_code_cache off;')
+
+    dnl PT3 (caa)
+    
+    location ~ API_PATH()/picto/(.+) {
+        default_type "application/json";
+        content_by_lua_file LUA_DEPLOY_PATH()/caa.lua;
+    }
+    location INTERNAL_API_PATH()/picto/ {
+        ifelse(ENVIRONMENT, `prod', `internal;')
+        proxy_pass http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/;
+    }
 
     dnl PT4 (emociones)
     

@@ -1,35 +1,79 @@
+WEB_DEPLOY_PATH:=/var/www/idilyco-api
+LUA_DEPLOY_PATH:=$(WEB_DEPLOY_PATH)/lua
+API_PATH:=/idilyco-api/v1
+INTERNAL_API_PATH:=/idilyco-api/internal
+NGINX_DEPLOY_PATH:=/etc/nginx/sites-available/idilyco-gateway
+
 DIST:=dist
-ALL:=index.html swagger-ui.css api main.js redoc.html
 
-all: $(addprefix $(DIST)/, $(ALL)) | $(DIST)
-	rm -rf /var/www/idilyco-api/*
-	cp -R dist/* /var/www/idilyco-api
+M4:=m4 -DDEPLOY_PATH=$(DEPLOY_PATH) \
+	-DLUA_DEPLOY_PATH=$(LUA_DEPLOY_PATH) \
+	-DAPI_PATH=$(API_PATH) \
+	-DINTERNAL_API_PATH=$(INTERNAL_API_PATH)
 
-$(DIST)/main.js: web/main.js | $(DIST)
-	webpack web/main.js --mode=production
+WEB_DIST:=$(DIST)/web
+WEB_SRCS:=index.html swagger-ui.css api main.js redoc.html
+WEB_ALL:=$(addprefix $(WEB_DIST)/, $(WEB_SRCS))
 
-$(DIST)/index.html: web/index.html | $(DIST)
+LUA_DIST:=$(DIST)/lua
+LUA_SRC_DIR:=gateway/lua
+LUA_SRCS:=$(wildcard $(LUA_SRC_DIR)/*)
+LUA_ALL:=$(patsubst $(LUA_SRC_DIR)/%.lua,$(LUA_DIST)/%.lua, $(LUA_SRCS)) \
+		 $(patsubst $(LUA_SRC_DIR)/%.lua.m4,$(LUA_DIST)/%.lua, $(LUA_SRCS))
+
+NGINX_SITE:=$(DIST)/idilyco-nginx
+GATEWAY_ALL:=$(NGINX_SITE) $(LUA_ALL)
+
+all: $(WEB_ALL) $(GATEWAY_ALL)
+
+# ==============
+#     WEB UI
+# ==============
+
+$(WEB_DIST)/main.js: web/main.js | $(WEB_DIST)
+	webpack web/main.js --mode=production -o $@
+
+$(WEB_DIST)/index.html: web/index.html | $(WEB_DIST)
 	cp $< $@
 
-$(DIST)/swagger-ui.css: node_modules/swagger-ui/dist/swagger-ui.css | $(DIST)
+$(WEB_DIST)/swagger-ui.css: node_modules/swagger-ui/dist/swagger-ui.css | $(DIST)
 	cp $< $@
 
-$(DIST)/api: $(wildcard api/**) | $(DIST)
+$(WEB_DIST)/api: $(wildcard api/**) | $(WEB_DIST)
 	rm -rf $@
 	cp -R api $@
 
-$(DIST)/redoc.html: $(wildcard api/**) | $(DIST)
+$(WEB_DIST)/redoc.html: $(wildcard api/**) | $(WEB_DIST)
 	npx redoc-cli bundle api/openapi.yaml
 	mv redoc-static.html $@
 
-$(DIST):
-	mkdir -p $(DIST)
+# =============
+#    GATEWAY
+# =============
 
-.PHONY: clean nginx
+$(NGINX_SITE): gateway/nginx.m4 | $(DIST)
+	$(M4) $< > $@
 
-nginx:
-	m4 gateway/nginx.m4 > /etc/nginx/sites-available/idilyco-gateway
-	systemctl reload nginx
+$(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua | $(LUA_DIST)
+	cp $< $@
+
+$(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua.m4 | $(LUA_DIST)
+	$(M4) $< > $@
+
+#    OTHER
+
+$(DIST) $(LUA_DIST) $(WEB_DIST):
+	mkdir -p $@
+
+.PHONY: clean deploy_web deploy_gateway
 
 clean:
 	rm -rf $(DIST)
+
+deploy_web: $(WEB_ALL)
+	cp -R $(DIST)/* $(WEB_DEPLOY_PATH)
+
+deploy_gateway: $(GATEWAY_ALL)
+	cp $(NGINX_SITE) $(NGINX_DEPLOY_PATH)
+	cp $(LUA_DIST)/* $(LUA_DEPLOY_PATH)
+	sudo systemctl reload nginx
