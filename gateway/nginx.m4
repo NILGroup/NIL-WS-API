@@ -54,11 +54,20 @@ server {
     
     location ~ API_PATH()/picto/(.+) {
         default_type "application/json";
-        content_by_lua_file LUA_DEPLOY_PATH()/caa.lua;
+        content_by_lua_file LUA_DEPLOY_PATH()/caa_picto.lua;
     }
     location INTERNAL_API_PATH()/picto/ {
         ifelse(ENVIRONMENT, `prod', `internal;')
         proxy_pass http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/;
+    }
+
+    location ~ API_PATH()/traducir/(.+) {
+        default_type "application/json";
+        content_by_lua_file LUA_DEPLOY_PATH()/caa_traducir.lua;
+    }
+    location INTERNAL_API_PATH()/traducir/ {
+        ifelse(ENVIRONMENT, `prod', `internal;')
+        proxy_pass http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/;
     }
 
     dnl PT4 (emociones)
