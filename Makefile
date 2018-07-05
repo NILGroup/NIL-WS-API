@@ -26,6 +26,7 @@ GATEWAY_ALL:=$(NGINX_SITE) $(LUA_ALL)
 
 all: $(WEB_ALL) $(GATEWAY_ALL)
 
+
 # ==============
 #     WEB UI
 # ==============
@@ -47,6 +48,7 @@ $(WEB_DIST)/redoc.html: $(wildcard api/**) | $(WEB_DIST)
 	npx redoc-cli bundle api/openapi.yaml
 	mv redoc-static.html $@
 
+
 # =============
 #    GATEWAY
 # =============
@@ -60,20 +62,25 @@ $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua | $(LUA_DIST)
 $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua.m4 | $(LUA_DIST)
 	$(M4) $< > $@
 
-#    OTHER
+
+# =============
+#     OTROS
+# =============
 
 $(DIST) $(LUA_DIST) $(WEB_DIST):
 	mkdir -p $@
 
-.PHONY: clean deploy_web deploy_gateway
+.PHONY: clean deploy_web deploy_gateway deploy_all
 
 clean:
 	rm -rf $(DIST)
 
 deploy_web: $(WEB_ALL)
-	cp -R $(DIST)/* $(WEB_DEPLOY_PATH)
+	cp -R $(WEB_DIST)/* $(WEB_DEPLOY_PATH)
 
 deploy_gateway: $(GATEWAY_ALL)
 	cp $(NGINX_SITE) $(NGINX_DEPLOY_PATH)
 	cp $(LUA_DIST)/* $(LUA_DEPLOY_PATH)
 	sudo systemctl reload nginx
+
+deploy_all: deploy_web deploy_gateway

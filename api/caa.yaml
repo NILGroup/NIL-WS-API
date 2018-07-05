@@ -1,6 +1,6 @@
 PictoPalabra:
   get:
-    summary: Dada una palabra, devuelve el pictograma que le corresponde. **NOTA** este servicio debería devolver la información del picto, ahora mismo devuelve una página web con la imagen embebida.
+    summary: Dada una palabra, devuelve el pictograma que le corresponde.
     tags:
       - PT3
     parameters:
@@ -10,9 +10,29 @@ PictoPalabra:
         required: true
         schema:
           type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ok:
+                  type: boolean
+                  description: Indica si se ha encontrado el pictograma.
+                pictograma:
+                  type: number
+                  description: El identificador del pictograma.
+                url:
+                  type: string
+                  description: URL de la imagen del pictograma.
+                palabra:
+                  type: string
+                  description: La palabra traducida
+
 PictoFrase:
   get:
-    summary: Dado un texto (funciona mejor con frases) devuelve su traducción en pictogramas en formato JSON. Una palabra puede tener luego distintos pictos posibles. **NOTA** este servicio ahora mismo no devuelve una lista de pictogramas, sino una lista de palabras analizadas o algo así.
+    summary: Dado un texto (funciona mejor con frases) devuelve su traducción en pictogramas en formato JSON. Una palabra puede tener luego distintos pictos posibles.
     tags:
       - PT3
     parameters:

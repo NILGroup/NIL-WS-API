@@ -4,7 +4,7 @@ info:
   title: Idilyco API
   description: |
     Este documento describe la _API_ del proyecto Idilyco, según el estándar OpenAPI 3.0.1
-  version: 0.1.0
+  version: 0.1.1
 
 tags:
   - name: PT1
