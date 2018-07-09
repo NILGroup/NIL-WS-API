@@ -64,6 +64,7 @@ server {
         }
         location INTERNAL_API_PATH()/$3 {
             ifelse(ENVIRONMENT, `prod', `internal;')
+            proxy_pass_request_headers off;
             proxy_pass $4;
         }
     )
