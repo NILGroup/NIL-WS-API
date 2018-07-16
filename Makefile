@@ -24,7 +24,22 @@ LUA_ALL:=$(patsubst $(LUA_SRC_DIR)/%.lua,$(LUA_DIST)/%.lua, $(LUA_SRCS)) \
 NGINX_SITE:=$(DIST)/idilyco-nginx
 GATEWAY_ALL:=$(NGINX_SITE) $(LUA_ALL)
 
-all: $(WEB_ALL) $(GATEWAY_ALL)
+
+DOC_INDEX := $(addprefix docs/,metadata.yaml $(shell cat docs/index.txt))
+WHITEPAPER:= $(DIST)/Whitepaper.pdf
+
+
+all: $(WEB_ALL) $(GATEWAY_ALL) $(WHITEPAPER)
+
+# ==============
+#    ALIASES
+# ==============
+
+web: $(WEB_ALL)
+gateway: $(GATEWAY_ALL)
+docs: $(WHITEPAPER)
+
+deploy_all: deploy_web deploy_gateway
 
 
 # ==============
@@ -63,6 +78,14 @@ $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua.m4 | $(LUA_DIST)
 	$(M4) $< > $@
 
 
+# ===============
+#  DOCUMENTACION
+# ===============
+
+$(DIST)/Whitepaper.pdf: $(DOC_INDEX) | $(DIST)
+	pandoc -o $@ $^
+
+
 # =============
 #     OTROS
 # =============
@@ -70,7 +93,7 @@ $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua.m4 | $(LUA_DIST)
 $(DIST) $(LUA_DIST) $(WEB_DIST):
 	mkdir -p $@
 
-.PHONY: clean deploy_web deploy_gateway deploy_all
+.PHONY: clean deploy_web deploy_gateway
 
 clean:
 	rm -rf $(DIST)
@@ -82,5 +105,3 @@ deploy_gateway: $(GATEWAY_ALL)
 	cp $(NGINX_SITE) $(NGINX_DEPLOY_PATH)
 	cp $(LUA_DIST)/* $(LUA_DEPLOY_PATH)
 	sudo systemctl reload nginx
-
-deploy_all: deploy_web deploy_gateway

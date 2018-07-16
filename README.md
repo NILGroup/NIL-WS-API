@@ -21,11 +21,15 @@ los servicios de Idilyco.
 - `gateway`: Plantilla [m4] para generar un servidor gateway con [nginx]. Este
   servidor expone una API unificada (especificada en este repositorio) que da
   acceso a los distintos servicios de Idilyco.
+- `docs`: Documento técnico del desarrollo del gateway y la API. Está escrito en
+  [pandoc markdown], preparado para generar PDF a través de Latex.
 - `Makefile`: Fichero [make] de apoyo para:
   1. Generar documentación web: se crea una carpeta `dist` estática para
-     desplegar en un servidor http compatible.
+     desplegar en un servidor http compatible. Usar `make web`.
   2. Desplegar gateway: se genera un fichero de configuración para nginx y se
-     reinicia el servicio.
+     reinicia el servicio. Usar `make gateway` para generarlo, `make
+     deploy_gateway` para desplegarlo.
+  3. Producir el documento técnico en PDF: usar el comando `make docs`.
 
 ## Uso
 
@@ -54,6 +58,7 @@ mismo servidor que la UI, se puede además probar la API directamente en la web.
 [nginx]: https://nginx.org/
 [nodejs]: https://nodejs.org/en/
 [OpenAPI]: https://github.com/OAI/OpenAPI-Specification
+[pandoc markdown]: https://pandoc.org/index.html
 [ReDoc]: https://github.com/Rebilly/ReDoc
 [swagger-ui]: https://swagger.io/tools/swagger-ui/
 [yaml]: http://yaml.org/
