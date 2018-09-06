@@ -13,18 +13,13 @@ define(`PROXY',
     location $1 {
         proxy_pass $2;
         proxy_http_version 1.1;
-        dnl
-        dnl El servidor de emociones no acepta estos headers
-        dnl
-        dnl proxy_set_header Upgrade $http_upgrade;
-        dnl proxy_set_header Connection "upgrade";
-        dnl proxy_set_header Host $http_host;
-        dnl proxy_set_header X-Forwarded-For $remote_addr;
         $3
     }
 )
 
 define(`IDY_API',PROXY(API_PATH()/$1,$2,$3))
+
+define(`SERVICIO_PALABRA',PROXY(~ ^API_PATH()/palabra/([^/]+)/$1$,$2,$3))
 
 divert
 
@@ -45,13 +40,16 @@ server {
 
     dnl PT1 (simplificacion)
 
-    define(`SIMPLE_REST_API', `http://sesat.fdi.ucm.es:8080/servicios/rest')
-    IDY_API(sencilla, SIMPLE_REST_API()/palabras/json)
-    IDY_API(sinonimos, SIMPLE_REST_API()/sinonimos/json)
-    IDY_API(antonimos, SIMPLE_REST_API()/antonimos/json)
-    IDY_API(definiciones, SIMPLE_REST_API()/definicion/json)
-    IDY_API(traducciones, SIMPLE_REST_API()/ingles/json)
-    IDY_API(conversion, SIMPLE_REST_API()/conversion/json)
+    define(`SIMPLIFICATION_API', `SERVICIO_PALABRA($1,
+        http://sesat.fdi.ucm.es:8080/servicios/rest/$2/json/$`1'
+    )')
+
+    SIMPLIFICATION_API(es_sencilla, palabras)
+    SIMPLIFICATION_API(sinonimos, sinonimos)
+    SIMPLIFICATION_API(antonimos, antonimos)
+    SIMPLIFICATION_API(definiciones, definicion)
+    SIMPLIFICATION_API(traducciones, ingles)
+    SIMPLIFICATION_API(conversion_a_facil, conversion)
 
     dnl PT2 (resumenes)
 
@@ -75,18 +73,19 @@ server {
             proxy_pass $4;
         }
     )
-    PATCH_JSON(`picto/(.+)', `caa_picto.lua', `picto/', `http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/')
+    PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/')
     PATCH_JSON(`traducir/(.+)', `caa_traducir.lua', `traducir/', `http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/')
 
     dnl PT4 (emociones)
     
-    define(`EMOCION_PALABRA_API', IDY_API(emocion/$1,
+    define(`EMOCION_PALABRA_API', `SERVICIO_PALABRA($1,
         http://sesat.fdi.ucm.es,
-        `rewrite ^.+/([^/]+)$ /emociones/palabra/$2?palabra=``$''1 break;'
-    ))
-    EMOCION_PALABRA_API(mayoritaria, mayoritariaEmo) 
-    EMOCION_PALABRA_API(consensuada, consensuadaEmo) 
-    EMOCION_PALABRA_API(grados, gradosEmo) 
+        `rewrite ^.*/palabra/([^/]+).*$ /emociones/palabra/$2?palabra=`$'1 break;'
+    )')
+
+    EMOCION_PALABRA_API(emocion_mayoritaria, mayoritariaEmo) 
+    EMOCION_PALABRA_API(emocion_consensuada, consensuadaEmo) 
+    EMOCION_PALABRA_API(emocion_grados, gradosEmo) 
 
 }
 

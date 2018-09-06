@@ -61,7 +61,7 @@ tags:
       url: http://sesat.fdi.ucm.es/apiEmoTraductor/
 
 servers:
-  - url: http://mistela.fdi.ucm.es/idilyco-api/v1
+  - url: https://mistela.fdi.ucm.es/idilyco-api/v1
 
 paths:
   # PALABRA

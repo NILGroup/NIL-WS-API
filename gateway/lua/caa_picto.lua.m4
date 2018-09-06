@@ -2,7 +2,7 @@ local json = require "LUA_DEPLOY_PATH()/JSON"
 local reply = function (tabla) ngx.say(json:encode(tabla)) end
 
 ngx.req.read_body()
-palabra = ngx.var.uri:match"[^/]+$"
+palabra = ngx.var.uri:match"palabra/([^/]+)"
 response = ngx.location.capture('INTERNAL_API_PATH()/picto/'..palabra)
 
 picto_url = response.body:match"<img src='([^']+)'>"

@@ -105,4 +105,4 @@ deploy_web: $(WEB_ALL)
 deploy_gateway: $(GATEWAY_ALL)
 	cp $(NGINX_SITE) $(NGINX_DEPLOY_PATH)
 	cp $(LUA_DIST)/* $(LUA_DEPLOY_PATH)
-	sudo systemctl reload nginx
+	sudo systemctl reload-or-restart nginx
