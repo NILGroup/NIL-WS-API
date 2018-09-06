@@ -1,15 +1,7 @@
-WEB_DEPLOY_PATH:=/var/www/idilyco-api
-LUA_DEPLOY_PATH:=$(WEB_DEPLOY_PATH)/lua
-API_PATH:=/idilyco-api/v1
-INTERNAL_API_PATH:=/idilyco-api/internal
-NGINX_DEPLOY_PATH:=/etc/nginx/sites-available/idilyco-gateway
+include local.conf
 
 DIST:=dist
-
-M4:=m4 -DDEPLOY_PATH=$(DEPLOY_PATH) \
-	-DLUA_DEPLOY_PATH=$(LUA_DEPLOY_PATH) \
-	-DAPI_PATH=$(API_PATH) \
-	-DINTERNAL_API_PATH=$(INTERNAL_API_PATH)
+M4:=m4
 
 WEB_DIST:=$(DIST)/web
 WEB_SRCS:=index.html swagger-ui.css api main.js redoc.html
