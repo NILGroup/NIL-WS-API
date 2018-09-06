@@ -1,0 +1,9 @@
+components:
+  parameters:
+    PalabraEnUrl:
+      name: palabra
+      description: una palabra en castellano
+      in: path
+      required: true
+      schema:
+        type: string

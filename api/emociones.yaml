@@ -1,12 +1,4 @@
 components:
-  parameters:
-    PalabraEnPath:
-      name: palabra
-      description: una palabra en castellano
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Emocion:
       type: string
@@ -74,8 +66,9 @@ MayoritariaPalabra:
     tags:
       - PT4
       - EmoTraductor
+      - Palabra
     parameters:
-      - $ref: "#/components/parameters/PalabraEnPath"
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
     responses:
       '200':
         content:
@@ -88,8 +81,9 @@ ConsensuadaPalabra:
     tags:
       - PT4
       - EmoTraductor
+      - Palabra
     parameters:
-      - $ref: "#/components/parameters/PalabraEnPath"
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
     responses:
       '200':
         content:
@@ -113,8 +107,9 @@ GradosPalabra:
     tags:
       - PT4
       - EmoTraductor
+      - Palabra
     parameters:
-      - $ref: "#/components/parameters/PalabraEnPath"
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
     responses:
       '200':
         content:

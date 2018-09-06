@@ -7,6 +7,16 @@ info:
   version: 0.1.1
 
 tags:
+  - name: Palabra
+    description: |
+      ## Servicios de palabras
+
+      Estos servicios devuelven información relativa a una palabra.
+  - name: Texto
+    description: |
+      ## Servicios de textos
+
+      Estos servicios devuelven información relativa a un texto o serie de palabras.
   - name: PT1
     description: |
       ## Simplificación de texto
@@ -54,30 +64,33 @@ servers:
   - url: http://mistela.fdi.ucm.es/idilyco-api/v1
 
 paths:
-  /sencilla/{palabra}:
+  # PALABRA
+  /palabra/{palabra}/es_sencilla:
     $ref: 'simplificacion.yaml#/Sencilla'
-  /sinonimos/{palabra}:
+  /palabra/{palabra}/sinonimos:
     $ref: 'simplificacion.yaml#/Sinonimos'
-  /antonimos/{palabra}:
+  /palabra/{palabra}/antonimos:
     $ref: 'simplificacion.yaml#/Antonimos'
-  /definiciones/{palabra}:
+  /palabra/{palabra}/definiciones:
     $ref: 'simplificacion.yaml#/Definiciones'
-  /traducciones/{palabra}:
+  /palabra/{palabra}/traducciones:
     $ref: 'simplificacion.yaml#/Traducciones'
-  /conversion/{palabra}:
+  /palabra/{palabra}/conversion_a_facil:
     $ref: 'simplificacion.yaml#/Conversion'
+  /palabra/{palabra}/pictograma:
+    $ref: 'caa.yaml#/PictoPalabra'
+  /palabra/{palabra}/emocion_mayoritaria:
+    $ref: 'emociones.yaml#/MayoritariaPalabra'
+  /palabra/{palabra}/emocion_consensuada:
+    $ref: 'emociones.yaml#/ConsensuadaPalabra'
+  /palabra/{palabra}/emocion_grados:
+    $ref: 'emociones.yaml#/GradosPalabra'
+
+  # TEXTOS
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
-  /picto/{palabra}:
-    $ref: 'caa.yaml#/PictoPalabra'
   /pictos/{frase}:
     $ref: 'caa.yaml#/PictoFrase'
-  /emocion/mayoritaria/{palabra}:
-    $ref: 'emociones.yaml#/MayoritariaPalabra'
-  /emocion/consensuada/{palabra}:
-    $ref: 'emociones.yaml#/ConsensuadaPalabra'
-  /emocion/grados/{palabra}:
-    $ref: 'emociones.yaml#/GradosPalabra'
   /emocion/mayoritaria/frase:
     $ref: 'emociones.yaml#/MayoritariaFrase'
   /emocion/grados/frase:

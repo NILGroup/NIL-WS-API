@@ -2,14 +2,10 @@ PictoPalabra:
   get:
     summary: Dada una palabra, devuelve el pictograma que le corresponde.
     tags:
+      - Palabra
       - PT3
     parameters:
-      - name: palabra
-        description: una palabra en castellano
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
     responses:
       '200':
         content:
@@ -34,14 +30,12 @@ PictoFrase:
   get:
     summary: Dado un texto (funciona mejor con frases) devuelve su traducción en pictogramas en formato JSON. Una palabra puede tener luego distintos pictos posibles.
     tags:
+      - Texto
       - PT3
     parameters:
-      - name: frase
-        description: una frase en castellano.
+      - name: texto
+        description: un texto o frase en castellano
         in: path
         required: true
         schema:
           type: string
-
-
-
