@@ -4,6 +4,9 @@ dnl Fichero de configuración de un gateway NGINX para servir como portal de
 dnl todos los servicios de Idilyco
 
 define(`SERVIDOR', mistela.fdi.ucm.es)
+define(`SSL_CERT', /etc/ssl/private/20180801_mistela.fdi.ucm.es.pem)
+define(`SSL_KEY', /etc/ssl/private/20180801_mistela.fdi.ucm.es.key)
+
 define(`ENVIRONMENT', dev)
 
 define(`PROXY',
@@ -27,9 +30,13 @@ divert
 
 server {
 
-    listen 80 default_server;
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
     
     server_name SERVIDOR();
+
+    ssl_certificate SSL_CERT();
+    ssl_certificate_key SSL_KEY();
 
     root /var/www;
     index index.html;
