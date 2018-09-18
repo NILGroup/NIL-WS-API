@@ -83,22 +83,19 @@ paths:
     $ref: 'emociones.yaml#/MayoritariaPalabra'
   /palabra/{palabra}/emocion_consensuada:
     $ref: 'emociones.yaml#/ConsensuadaPalabra'
-  /palabra/{palabra}/emocion_grados:
+  /palabra/{palabra}/grados_emociones:
     $ref: 'emociones.yaml#/GradosPalabra'
 
   # TEXTOS
+  /texto/emocion_mayoritaria:
+    $ref: 'emociones.yaml#/MayoritariaTexto'
+  /texto/grados_emociones:
+    $ref: 'emociones.yaml#/GradosTexto'
+  /texto/palabras_emocionales:
+    $ref: 'emociones.yaml#/PalabrasEmocionales'
+
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
   /pictos/{frase}:
     $ref: 'caa.yaml#/PictoFrase'
-  /emocion/mayoritaria/frase:
-    $ref: 'emociones.yaml#/MayoritariaFrase'
-  /emocion/grados/frase:
-    $ref: 'emociones.yaml#/GradosFrase'
-  /emocion/mayoritaria/texto:
-    $ref: 'emociones.yaml#/MayoritariaTexto'
-  /emocion/grados/texto:
-    $ref: 'emociones.yaml#/GradosTexto'
-  /emocion/palabras/texto:
-    $ref: 'emociones.yaml#/PalabrasEmocionales'
 

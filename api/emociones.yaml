@@ -8,18 +8,6 @@ components:
         - Alegría
         - Enfado
         - Asco
-    EmocionMayoritaria:
-      type: object
-      properties:
-        grado:
-          type: number
-          minimum: 0
-          description: El grado con el que se ha elegido la emoción mayoritaria.
-        emocion:
-          type: array
-          description: Lista de las emociones mayortiarias. 
-          items:
-            $ref: "#/components/schemas/Emocion"
     EmocionesMayoritarias:
       type: object
       properties:
@@ -45,20 +33,6 @@ components:
           type: number
         Asco:
           type: number
-    FraseEnBody:
-      type: object
-      required:
-        - frase
-      properties:
-        frase:
-          type: string
-    TextoEnBody:
-      type: object
-      required:
-        - texto
-      properties:
-        texto:
-          type: string
 
 MayoritariaPalabra:
   get:
@@ -116,54 +90,15 @@ GradosPalabra:
           application/json:
             schema:
               $ref: "#/components/schemas/GradosEmociones"
-MayoritariaFrase:
-  post:
-    summary: Devuelve la emoción con mayor grado junto con su grado, dada una frase. En caso de tener más de una mayoritaria, devuelve en la lista todas las emociones. En caso de no tener mayoritaria devuelve el grado a cero y una lista vacía.
-    tags:
-      - PT4
-      - EmoTraductor
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/FraseEnBody"
-    responses:
-      '200':
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EmocionMayoritaria"
-GradosFrase:
-  post:
-    summary: Devuelve la lista de emociones para una frase con sus respectivos grados.
-    tags:
-      - PT4
-      - EmoTraductor
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/FraseEnBody"
-    responses:
-      '200':
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GradosEmociones"
 MayoritariaTexto:
   post:
-    summary: Devuelve la emoción con mayor grado, junto con el grado, dado un texto.
+    summary: Devuelve la emoción con mayor grado junto con su grado, dado un texto. En caso de tener más de una mayoritaria, devuelve en la lista todas las emociones. En caso de no tener mayoritaria devuelve el grado a cero y una lista vacía.
     tags:
       - PT4
       - EmoTraductor
+      - Texto
     requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/TextoEnBody"
+      $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
     responses:
       '200':
         content:
@@ -198,12 +133,9 @@ GradosTexto:
     tags:
       - PT4
       - EmoTraductor
+      - Texto
     requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/TextoEnBody"
+      $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
     responses:
       '200':
         content:
@@ -216,6 +148,7 @@ PalabrasEmocionales:
     tags:
       - PT4
       - EmoTraductor
+      - Texto
     requestBody:
       required: true
       content:

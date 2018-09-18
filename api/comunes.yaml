@@ -7,3 +7,15 @@ components:
       required: true
       schema:
         type: string
+  schemas:
+    TextoEnBodyJSON:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - texto
+            properties:
+              texto:
+                type: string
