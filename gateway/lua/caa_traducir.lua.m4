@@ -2,8 +2,8 @@ local json = require "LUA_DEPLOY_PATH()/JSON"
 local reply = function (tabla) ngx.say(json:encode(tabla)) end
 
 ngx.req.read_body()
-frase = ngx.var.uri:match"[^/]+$"
-response = ngx.location.capture('INTERNAL_API_PATH()/traducir/'..frase)
+body = json:decode(ngx.req.get_body_data())
+response = ngx.location.capture('INTERNAL_API_PATH()/traducir/'..body.texto)
 
 palabras = json:decode(response.body)
 traduccion = {}

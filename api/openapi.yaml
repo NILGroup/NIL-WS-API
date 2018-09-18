@@ -87,6 +87,8 @@ paths:
     $ref: 'emociones.yaml#/GradosPalabra'
 
   # TEXTOS
+  /texto/pictogramas:
+    $ref: 'caa.yaml#/PictoFrase'
   /texto/emocion_mayoritaria:
     $ref: 'emociones.yaml#/MayoritariaTexto'
   /texto/grados_emociones:
@@ -96,6 +98,4 @@ paths:
 
   /resumen/{idioma}:
     $ref: 'grafeno.yaml#/Resumenes'
-  /pictos/{frase}:
-    $ref: 'caa.yaml#/PictoFrase'
 

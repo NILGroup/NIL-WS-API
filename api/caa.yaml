@@ -27,15 +27,38 @@ PictoPalabra:
                   description: La palabra traducida
 
 PictoFrase:
-  get:
+  post:
     summary: Dado un texto (funciona mejor con frases) devuelve su traducción en pictogramas en formato JSON. Una palabra puede tener luego distintos pictos posibles.
     tags:
       - Texto
       - PT3
-    parameters:
-      - name: texto
-        description: un texto o frase en castellano
-        in: path
-        required: true
-        schema:
-          type: string
+    requestBody:
+      $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ok:
+                  type: boolean
+                  description: Indica si se ha podido completar la petición.
+                traduccion:
+                  type: array
+                  description: Lista de pictogramas correspondientes a las palabras originales.
+                  items:
+                    type: object
+                    properties:
+                      lema:
+                        type: string
+                        description: El lema lingüístico de la palabra original.
+                      pos:
+                        type: string
+                        description: La parte de la oración de la palabra original.
+                      pictogramas:
+                        type: array
+                        description: Lista de posibles pictogramas para la palabra.
+                        items:
+                          type: number
+                          description: El identificador del pictograma.

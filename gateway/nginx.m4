@@ -65,7 +65,7 @@ server {
         }
     )
     PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/')
-    PATCH_JSON(`traducir/(.+)', `caa_traducir.lua', `traducir/', `http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/')
+    PATCH_JSON(`texto/pictogramas', `caa_traducir.lua', `traducir/', `http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/')
 
     dnl PT4 (emociones)
     
