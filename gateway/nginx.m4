@@ -1,7 +1,4 @@
 divert(-1)
-patsubst(include(local.conf),
-`\(.+\):=\(.+\)',
-`define(\1,\2)')
 
 define(`PROXY',
     location $1 {
