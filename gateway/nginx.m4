@@ -77,5 +77,12 @@ server {
     EMOCION_PALABRA_API(emocion_consensuada, consensuadaEmo) 
     EMOCION_PALABRA_API(emocion_grados, gradosEmo) 
 
+    dnl COMBI
+    
+    location ~ API_PATH()/texto/pictoresumen {
+        default_type "application/json";
+        content_by_lua_file LUA_DEPLOY_PATH()/pictoresumen.lua;
+    }
+
 }
 
