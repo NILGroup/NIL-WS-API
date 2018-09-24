@@ -95,7 +95,6 @@ paths:
     $ref: 'emociones.yaml#/GradosTexto'
   /texto/palabras_emocionales:
     $ref: 'emociones.yaml#/PalabrasEmocionales'
-
-  /resumen/{idioma}:
+  /texto/resumen:
     $ref: 'grafeno.yaml#/Resumenes'
 
