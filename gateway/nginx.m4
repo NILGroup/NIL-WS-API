@@ -8,9 +8,24 @@ define(`PROXY',
     }
 )
 
-define(`IDY_API',PROXY(API_PATH()/$1,$2,$3))
-
 define(`SERVICIO_PALABRA',PROXY(~ ^API_PATH()/palabra/([^/]+)/$1$,$2,$3))
+
+dnl 4 argumentos:
+dnl - path en la api
+dnl - fichero lua adaptador
+dnl - path api interna (location con proxy pass)
+dnl - url upstream (direccion del proxy_pass)
+define(`PATCH_JSON', 
+    location ~ API_PATH()/$1 {
+        default_type "application/json";
+        content_by_lua_file LUA_DEPLOY_PATH()/$2;
+    }
+    location INTERNAL_API_PATH()/$3 {
+        ifelse(ENVIRONMENT, `prod', `internal;')
+        default_type "application/json";
+        proxy_pass $4;
+    }
+)
 
 divert
 
@@ -44,26 +59,10 @@ server {
 
     dnl PT2 (resumenes)
 
-    IDY_API(resumen/es, https://sesat.fdi.ucm.es/grafeno/run/summary_es)
+    PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://sesat.fdi.ucm.es/grafeno/')
 
     dnl PT3 (caa)
-    
-    dnl 4 argumentos:
-    dnl - path en la api
-    dnl - fichero lua adaptador
-    dnl - path api interna (location con proxy pass)
-    dnl - url upstream (direccion del proxy_pass)
-    define(`PATCH_JSON', 
-        location ~ API_PATH()/$1 {
-            default_type "application/json";
-            content_by_lua_file LUA_DEPLOY_PATH()/$2;
-        }
-        location INTERNAL_API_PATH()/$3 {
-            ifelse(ENVIRONMENT, `prod', `internal;')
-            proxy_pass_request_headers off;
-            proxy_pass $4;
-        }
-    )
+
     PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/')
     PATCH_JSON(`texto/pictogramas', `caa_traducir.lua', `traducir/', `http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/')
 
