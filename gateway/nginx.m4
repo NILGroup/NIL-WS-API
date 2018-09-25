@@ -75,7 +75,7 @@ server {
 
     EMOCION_PALABRA_API(emocion_mayoritaria, mayoritariaEmo) 
     EMOCION_PALABRA_API(emocion_consensuada, consensuadaEmo) 
-    EMOCION_PALABRA_API(emocion_grados, gradosEmo) 
+    EMOCION_PALABRA_API(grados_emociones, gradosEmo) 
 
     # SERVICIOS COMPUESTOS
     
