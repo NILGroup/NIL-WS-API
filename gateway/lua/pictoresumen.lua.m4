@@ -9,11 +9,18 @@ local call_api = function (api, texto)
 end
 
 ngx.req.read_body()
-body = json:decode(ngx.req.get_body_data())
+texto = json:decode(ngx.req.get_body_data()).texto
 
-resumen = call_api('/texto/resumen?longitud=1', body.texto)
-pictos = call_api('/texto/pictogramas', resumen.resumen)
+long = math.floor(string.len(texto)*0.04)
 
-reply{ ok=true, pictoresumen=pictos.traduccion }
+resumen = call_api('/texto/resumen?longitud='..long, texto).resumen
+
+pictoresumen = {}
+for frase in resumen:gmatch("([^\n]+)") do
+    pictos = call_api('/texto/pictogramas', frase).traduccion
+    pictoresumen[#pictoresumen+1] = pictos
+end
+
+reply{ ok=true, pictoresumen=pictoresumen }
 
 -- vi: ft=lua
