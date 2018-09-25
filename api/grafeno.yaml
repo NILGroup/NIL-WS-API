@@ -6,7 +6,6 @@ Resumenes:
     tags:
       - Texto
       - PT2
-      - grafeno
     requestBody:
       $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
     parameters:

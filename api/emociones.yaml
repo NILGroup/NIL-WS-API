@@ -39,7 +39,6 @@ MayoritariaPalabra:
     summary: Devuelve la emoción con mayor grado, junto con el grado, dada una palabra. Si la palabra no existe en el diccionario afectivo, devuelve una lista de emociones vacía y el grado como 0.
     tags:
       - PT4
-      - EmoTraductor
       - Palabra
     parameters:
       - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
@@ -54,7 +53,6 @@ ConsensuadaPalabra:
     summary: Devuelve la emoción elegida por todos los evaluadores como emoción para la palabra. Solo devuelve emoción si todos los evaluadores están de acuerdo, por lo que devolverá una emoción si el grado del resto es 0. En caso de no existir la palabra en el diccionario lo indica.
     tags:
       - PT4
-      - EmoTraductor
       - Palabra
     parameters:
       - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
@@ -80,7 +78,6 @@ GradosPalabra:
     summary: Devuelve la lista de emociones para una palabra con sus respectivos grados. Si la palabra no existe devuelve ceros para cada emoción.
     tags:
       - PT4
-      - EmoTraductor
       - Palabra
     parameters:
       - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
@@ -95,7 +92,6 @@ MayoritariaTexto:
     summary: Devuelve la emoción con mayor grado junto con su grado, dado un texto. En caso de tener más de una mayoritaria, devuelve en la lista todas las emociones. En caso de no tener mayoritaria devuelve el grado a cero y una lista vacía.
     tags:
       - PT4
-      - EmoTraductor
       - Texto
     requestBody:
       $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
@@ -132,7 +128,6 @@ GradosTexto:
     summary: Devuelve la lista de emociones de un texto con sus respectivos grados.
     tags:
       - PT4
-      - EmoTraductor
       - Texto
     requestBody:
       $ref: "comunes.yaml#/components/schemas/TextoEnBodyJSON"
@@ -147,7 +142,6 @@ PalabrasEmocionales:
     summary: Dado un texto devuelve los grados de este junto con una lista de palabras emocionales.
     tags:
       - PT4
-      - EmoTraductor
       - Texto
     requestBody:
       required: true
