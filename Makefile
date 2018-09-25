@@ -3,7 +3,7 @@ include local.conf
 SHELL:=/bin/bash
 
 DIST:=dist
-M4:=m4 - <<<'divert(-1) patsubst(include(local.conf),`\(.+\):=\(.+\)'"'"',`define(\1,\2)'"'"') divert'
+M4:=m4 -P - <<<'m4_divert(-1) m4_patsubst(m4_include(local.conf),`\(.+\):=\(.+\)'"'"',`m4_define(\1,\2)'"'"') m4_divert'
 
 WEB_DIST:=$(DIST)/web
 WEB_SRCS:=index.html swagger-ui.css api main.js redoc.html
