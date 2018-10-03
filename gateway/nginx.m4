@@ -2,7 +2,8 @@ m4_divert(-1)
 
 m4_define(`PROXY',
     location $1 {
-        proxy_pass $2;
+        set $upstream $2;
+        proxy_pass $upstream;
         proxy_http_version 1.1;
         $3
     }
@@ -23,7 +24,8 @@ m4_define(`PATCH_JSON',
     location INTERNAL_API_PATH()/$3 {
         m4_ifelse(ENVIRONMENT, `prod', `internal;')
         default_type "application/json";
-        proxy_pass $4;
+        set $upstream $4;
+        proxy_pass $upstream;
     }
 )
 
