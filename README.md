@@ -21,8 +21,13 @@ los servicios de Idilyco.
 - `gateway`: Plantilla [m4] para generar un servidor gateway con [nginx]. Este
   servidor expone una API unificada (especificada en este repositorio) que da
   acceso a los distintos servicios de Idilyco.
-- `docs`: Documento técnico del desarrollo del gateway y la API. Está escrito en
-  [pandoc markdown], preparado para generar PDF a través de Latex.
+- `docs/TechnichalReport`: Documento técnico del desarrollo del gateway y la
+  API. Está escrito en [pandoc markdown], preparado para generar PDF a través de
+  Latex.
+- `docs/BuenasPracticasAPI.md`: Documento de buenas prácticas para escribir un
+  servicio web compatible con esta API.
+- `docs/EjemploWS.py`: Ejemplo python de un servicio web compatible con esta
+  API.
 - `Makefile`: Fichero [make] de apoyo para:
   1. Generar documentación web: se crea una carpeta `dist` estática para
      desplegar en un servidor http compatible. Usar `make web`.

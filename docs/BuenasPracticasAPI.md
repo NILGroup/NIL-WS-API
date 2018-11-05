@@ -154,6 +154,3 @@ if __name__ == '__main__':
     print(__doc__)
     bottle.run(host='localhost', port=3000, reloader=True)
 ```
-
-### Más información
-
