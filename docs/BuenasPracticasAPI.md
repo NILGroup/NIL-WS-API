@@ -1,11 +1,11 @@
-# Buenas prácticas para la API de Servicios Web NiL
+# Buenas prácticas para la API de Servicios Web NIL
 
 * Autor: Antonio F. G. Sevilla <afgs@ucm.es>
 * Versión: 0.1
 * Fecha: 2018-11-05
 
 Este documento recoge una serie de buenas prácticas para el diseño e
-implementación de servicios web en el grupo NiL. Estas buenas prácticas sirven
+implementación de servicios web en el grupo NIL. Estas buenas prácticas sirven
 como punto de encuentro, de forma que los servicios que las sigan puedan
 interoperar con facilidad y ser integrados dentro del ecosistema general del
 grupo. Al final del documento se encuentra un ejemplo de cómo implementar un
