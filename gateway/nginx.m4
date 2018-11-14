@@ -2,9 +2,9 @@ m4_divert(-1)
 
 m4_define(`PROXY',
     location $1 {
-        set $upstream $2;
-        proxy_pass $upstream;
+        default_type "application/json";
         proxy_http_version 1.1;
+        proxy_pass $2;
         $3
     }
 )
@@ -24,10 +24,13 @@ m4_define(`PATCH_JSON',
     location INTERNAL_API_PATH()/$3 {
         m4_ifelse(ENVIRONMENT, `prod', `internal;')
         default_type "application/json";
-        set $upstream $4;
-        proxy_pass $upstream;
+        proxy_http_version 1.1;
+        proxy_pass $4;
     }
 )
+
+m4_define(`SESAT',`147.96.80.187')
+m4_define(`HYPATIA',`147.96.81.195')
 
 m4_divert
 
@@ -49,7 +52,7 @@ server {
     # PT1 (simplificacion)
 
     m4_define(`SIMPLIFICATION_API', `SERVICIO_PALABRA($1,
-        http://sesat.fdi.ucm.es:8080/servicios/rest/$2/json/$`1'
+        http://SESAT:8080/servicios/rest/$2/json/$`1'
     )')
 
     SIMPLIFICATION_API(es_sencilla, palabras)
@@ -61,17 +64,17 @@ server {
 
     # PT2 (resumenes)
 
-    PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://sesat.fdi.ucm.es/grafeno/')
+    PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://SESAT/grafeno/')
 
     # PT3 (caa)
 
-    PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/')
-    PATCH_JSON(`texto/pictogramas', `caa_traducir.lua', `traducir/', `http://hypatia.fdi.ucm.es:5223/PICTAR/traducir/')
+    PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://SESAT:8080/servicios/rest/pictograma/palabra/')
+    PATCH_JSON(`texto/pictogramas', `caa_traducir.lua', `traducir/', `http://HYPATIA:5223/PICTAR/traducir/')
 
     # PT4 (emociones)
     
     m4_define(`EMOCION_PALABRA_API', `SERVICIO_PALABRA($1,
-        http://sesat.fdi.ucm.es,
+        http://SESAT,
         `rewrite ^.*/palabra/([^/]+).*$ /emociones/palabra/$2?palabra=`$'1 break;'
     )')
 
