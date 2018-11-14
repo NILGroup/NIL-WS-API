@@ -24,6 +24,7 @@ m4_define(`PATCH_JSON',
     location INTERNAL_API_PATH()/$3 {
         m4_ifelse(ENVIRONMENT, `prod', `internal;')
         default_type "application/json";
+        proxy_set_header Accept "";
         proxy_http_version 1.1;
         proxy_pass $4;
     }
@@ -75,7 +76,8 @@ server {
     
     m4_define(`EMOCION_PALABRA_API', `SERVICIO_PALABRA($1,
         http://SESAT,
-        `rewrite ^.*/palabra/([^/]+).*$ /emociones/palabra/$2?palabra=`$'1 break;'
+        `proxy_set_header Host "sesat.fdi.ucm.es";
+        rewrite ^.*/palabra/([^/]+).*$ /emociones/palabra/$2?palabra=`$'1 break;'
     )')
 
     EMOCION_PALABRA_API(emocion_mayoritaria, mayoritariaEmo) 
