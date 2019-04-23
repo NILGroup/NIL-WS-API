@@ -27,11 +27,21 @@ m4_define(`PATCH_JSON',
         proxy_set_header Accept "";
         proxy_http_version 1.1;
         proxy_pass $4;
+        $5
+    }
+)
+m4_dnl Añade otra ruta que reutiliza un fichero lua, reutiliza
+m4_dnl los dos primeros parámetros anteriores
+m4_define(`PATCH_JSON_2',
+    location ~ API_PATH()/$1 {
+        default_type "application/json";
+        content_by_lua_file LUA_DEPLOY_PATH()/$2;
     }
 )
 
 m4_define(`SESAT',`147.96.80.187')
 m4_define(`HYPATIA',`147.96.81.195')
+m4_define(`HOLSTEIN',`147.96.80.224')
 
 m4_divert
 
@@ -83,6 +93,10 @@ server {
     EMOCION_PALABRA_API(emocion_mayoritaria, mayoritariaEmo) 
     EMOCION_PALABRA_API(emocion_consensuada, consensuadaEmo) 
     EMOCION_PALABRA_API(grados_emociones, gradosEmo) 
+
+    PATCH_JSON(`texto/grados_emociones', `emociones.lua', `emociones/', `https://HOLSTEIN/api-emociones/emociones/texto/', `proxy_set_header "Content-Type" "application/x-www-form-urlencoded";')
+    PATCH_JSON_2(`texto/emocion_mayoritaria', `emociones.lua')
+    PATCH_JSON(`texto/palabras_emocionales', `emociones_palabras.lua', `emociones_palabras/', `https://HOLSTEIN/api-emociones/textosGuay/', `proxy_set_header "Content-Type" "application/x-www-form-urlencoded";')
 
     # SERVICIOS COMPUESTOS
     

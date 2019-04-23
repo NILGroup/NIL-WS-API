@@ -40,13 +40,11 @@ tags:
       
       Responsable: Virginia
 
-      **Importante**: Los servicios POST no funcionan como API porque requieren de cookie CSRF, es decir sólo se pueden usar desde su página.
-
-      - Ya está en marcha la API de servicios para obtener las emociones de una
-        palabra, una frase o un texto http://sesat.fdi.ucm.es/api/ o
-        http://sesat.fdi.ucm.es/apiEmoTraductor/ - También hemos implementado
-        EmoTraductor, un intérprete de las emociones transmitidas por un texto.
-        http://sesat.fdi.ucm.es/traductor/
+      Ya está en marcha la API de servicios para obtener las emociones de una
+      palabra, una frase o un texto http://sesat.fdi.ucm.es/api/ o
+      http://sesat.fdi.ucm.es/apiEmoTraductor/ - También hemos implementado
+      EmoTraductor, un intérprete de las emociones transmitidas por un texto.
+      http://sesat.fdi.ucm.es/traductor/
 
 servers:
   - url: https://mistela.fdi.ucm.es/idilyco-api/v1
