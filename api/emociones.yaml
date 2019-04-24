@@ -150,7 +150,7 @@ PalabrasEmocionales:
           schema:
             type: object
             properties:
-              a:
+              texto:
                 type: string
                 description: Es un texto, frase o palabra a evaluar.
                 required: true
@@ -164,11 +164,7 @@ PalabrasEmocionales:
                 Devuelve en el JSON con dos campos "emociones" que representa los grados emocionales del texto introducido y "palabras" que es una lista con todas las palabras 'emocionales' del texto; todas aquellas que se encuentran en la stoplist del servicio aunque no tenga grados asignados.
               properties:
                 emociones:
-                  type: array
-                  description: Los grados de las distintas emociones
-                  items:
-                    type: string
-                  example: ["1.42", "2.38", "2.74", "1.28", "1.41"]
+                  $ref: "#/components/schemas/GradosEmociones"
                 palabras:
                   type: array
                   description: Las palabras emocionales.

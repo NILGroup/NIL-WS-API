@@ -11,7 +11,7 @@ response = ngx.location.capture('INTERNAL_API_PATH()/emociones_palabras/', {
 })
 
 result = json:decode(response.body)
-reply{ ok=true, emociones={ Tristeza=result.emociones[1],
+reply{ emociones={ Tristeza=result.emociones[1],
     Miedo=result.emociones[2], Alegria=result.emociones[3],
     Enfado=result.emociones[4], Asco=result.emociones[5] },
     palabras=result.palabras }

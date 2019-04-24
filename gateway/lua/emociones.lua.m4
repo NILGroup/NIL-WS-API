@@ -14,12 +14,12 @@ response = ngx.location.capture('INTERNAL_API_PATH()/emociones/'..servicios[serv
     })
 })
 
-result = json:decode(response.body)
 
 if servicio=='grados_emociones' then
-    reply{ ok=true, emociones=result }
+    ngx.say(response.body)
 else
-    reply{ ok=true, emociones=result.emocion, grado=result.grado }
+    result = json:decode(response.body)
+    reply{ emociones=result.emocion, grado=result.grado }
 end
 
 -- vi: ft=lua
