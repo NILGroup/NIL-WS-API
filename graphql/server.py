@@ -1,7 +1,7 @@
 from ariadne import make_executable_schema, ObjectType, gql
 from ariadne.asgi import GraphQL
 
-import caa
+import caa, emociones
 
 Esquema = {
     "tipos": [],
@@ -10,6 +10,7 @@ Esquema = {
 }
 
 caa.decorar(Esquema)
+emociones.decorar(Esquema)
 
 Esquema["tipos"] += [
     gql("""
