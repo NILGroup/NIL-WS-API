@@ -1,15 +1,15 @@
 import requests
 import regex
 
-from .comun import palabra
+from .comun import tipo_palabra
 
 URL_SERVICIO_PICTOGRAMAS = "http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/%s"  
 
 regex_pictograma = regex.compile(r"<img src=['\"](.+Pictos/)(.+)['\"]>")
 
-@palabra.field("pictograma")
-def get_pictograma (Palabra, *_):
-    r = requests.get(URL_SERVICIO_PICTOGRAMAS % Palabra["s"])
+@tipo_palabra.field("pictograma")
+def get_pictograma (palabra, *_):
+    r = requests.get(URL_SERVICIO_PICTOGRAMAS % palabra.s)
     match = regex_pictograma.search(r.text)
     if match:
         return {

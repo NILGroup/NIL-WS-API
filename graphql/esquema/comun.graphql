@@ -1,13 +1,26 @@
 type Query {
-    palabra(s: String!): Palabra!
+  palabra(s: String!): Palabra!
+  texto(s: String!): Texto!
 }
 
 type Palabra {
 
-    "Un pictograma asociado al significado de la palabra."
-    pictograma: Pictograma
+  "La representación textual de la palabra."
+  s: String!
 
-    emocionesMayoritarias: EmocionesMayoritarias
-    emocionConsensuada: String
-    gradosEmociones: GradosEmociones
+  "Un pictograma asociado al significado de la palabra."
+  pictograma: Pictograma
+
+  emocionesMayoritarias: EmocionesMayoritarias
+  emocionConsensuada: String
+  gradosEmociones: GradosEmociones
+}
+
+type Texto {
+
+  "La representación escrita del texto."
+  s: String!
+
+  "Todas las palabras del texto, excluidos signos de puntuación."
+  palabras: [Palabra]!
 }
