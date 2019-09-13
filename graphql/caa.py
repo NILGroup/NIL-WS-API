@@ -13,8 +13,8 @@ tipo_pictograma = gql("""
 
 regex_pictograma = regex.compile(r"<img src=['\"](.+Pictos/)(.+)['\"]>")
 
-def get_pictograma (palabra):
-    r = requests.get(URL_SERVICIO_PICTOGRAMAS % palabra)
+def get_pictograma (Palabra, *_):
+    r = requests.get(URL_SERVICIO_PICTOGRAMAS % Palabra["s"])
     match = regex_pictograma.search(r.text)
     if match:
         return {
@@ -23,3 +23,8 @@ def get_pictograma (palabra):
         }
     else:
         return None
+
+def decorar (Esquema):
+    Esquema["tipos"] += [tipo_pictograma]
+    Esquema["campos_palabra"] += ['pictograma: Pictograma']
+    Esquema["palabra"].set_field("pictograma", get_pictograma)

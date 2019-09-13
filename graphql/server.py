@@ -1,30 +1,38 @@
-from ariadne import make_executable_schema, QueryType, gql
+from ariadne import make_executable_schema, ObjectType, gql
 from ariadne.asgi import GraphQL
 
-from caa import tipo_pictograma, get_pictograma
+import caa
 
-type_defs = gql("""
-    type Palabra {
-        pictograma: Pictograma
-    }
-    type Query {
-        palabra(s: String!): Palabra!
-    }
-""")
+Esquema = {
+    "tipos": [],
+    "palabra": ObjectType("Palabra"),
+    "campos_palabra": []
+}
 
-class Palabra:
-    def __init__(self, s):
-        self.s = s
+caa.decorar(Esquema)
 
-    def pictograma (self, info):
-        return get_pictograma(self.s)
+Esquema["tipos"] += [
+    gql("""
+        type Palabra {
+          %s 
+        }
+    """ % "\n".join(Esquema["campos_palabra"])),
+    gql("""
+        type Query {
+            palabra(s: String!): Palabra!
+        }
+    """)
+    ]
 
-query = QueryType()
+query = ObjectType("Query")
 
 @query.field("palabra")
 def resolve_palabra (_, info, s):
-    return Palabra(s)
+    return { "s": s }
 
-schema = make_executable_schema([tipo_pictograma, type_defs], query)
+schema = make_executable_schema(
+    Esquema["tipos"],
+    [query, Esquema["palabra"]]
+    )
 
 app = GraphQL(schema, debug=True)
