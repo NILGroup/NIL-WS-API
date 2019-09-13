@@ -23,4 +23,7 @@ type Texto {
 
   "Todas las palabras del texto, excluidos signos de puntuación."
   palabras: [Palabra]!
+
+  gradosEmociones: GradosEmociones
+  palabrasEmocionales: [Palabra]!
 }

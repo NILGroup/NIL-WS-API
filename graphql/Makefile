@@ -1,2 +1,2 @@
 all:
-	pipenv run daphne server:app
+	pipenv run daphne -v 0 server:app
