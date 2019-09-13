@@ -1,0 +1,12 @@
+"""
+Un pictograma es una representación gráfica de un concepto: ver
+[wikipedia](https://es.wikipedia.org/wiki/Pictograma).
+"""
+type Pictograma {
+
+    "URL donde se puede encontrar la imagen del pictograma."
+    url: String!
+
+    "Identificador único del pictograma."
+    id: String!
+}

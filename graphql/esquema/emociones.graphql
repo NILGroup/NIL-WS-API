@@ -1,0 +1,12 @@
+type GradosEmociones {
+    Tristeza: Float!
+    Miedo: Float!
+    Alegria: Float!
+    Enfado: Float!
+    Asco: Float!
+}
+
+type EmocionesMayoritarias {
+    emociones: [String]!
+    grado: Float!
+}

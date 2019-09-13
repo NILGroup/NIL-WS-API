@@ -1,0 +1,13 @@
+type Query {
+    palabra(s: String!): Palabra!
+}
+
+type Palabra {
+
+    "Un pictograma asociado al significado de la palabra."
+    pictograma: Pictograma
+
+    emocionesMayoritarias: EmocionesMayoritarias
+    emocionConsensuada: String
+    gradosEmociones: GradosEmociones
+}
