@@ -1,9 +1,10 @@
 openapi: 3.0.1
 
 info:
-  title: Idilyco API
+  title: NIL WS API
   description: |
-    Este documento describe la _API_ del proyecto Idilyco, según el estándar OpenAPI 3.0.1
+    Este documento describe la _API_ del grupo NIL preparada por el proyecto
+    IDiLyCo, según el estándar OpenAPI 3.0.1
   version: 0.1.1
 
 tags:
@@ -47,7 +48,7 @@ tags:
       http://sesat.fdi.ucm.es/traductor/
 
 servers:
-  - url: https://mistela.fdi.ucm.es/idilyco-api/v1
+  - url: https://holstein.fdi.ucm.es/nil-ws-api/v1
 
 paths:
   # PALABRA

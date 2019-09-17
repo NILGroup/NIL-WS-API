@@ -1,7 +1,7 @@
 {
-  "name": "idilyco-api",
+  "name": "nil-ws-api",
   "version": "0.1.0",
-  "description": "Descripcion de la API de Idilyco",
+  "description": "Descripcion de la API de WS del grupo NIL",
   "dependencies": {
     "swagger-ui": "^3.17.0",
     "webpack": "^4.12.0",

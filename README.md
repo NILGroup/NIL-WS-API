@@ -1,7 +1,7 @@
-# Idylico-API
+# NIL-WS-API
 
 Este repositorio contiene el desarrollo de la especificación de la **API de
-Idylico**, así como código de apoyo.
+Servicios Web de NIL**, así como código de apoyo.
 
 ## Estructura
 
@@ -10,7 +10,7 @@ formal de la API, en formato texto. Adicionalmente, contiene dos módulos
 relacionados que apoyan esta API. El módulo web genera una documentación web de
 la API que es más cómoda de leer y utilizar. El módulo gateway sirve como puerta
 de acceso para proveer la API de la especificación, que da un acceso unificado a
-los servicios de Idilyco.
+los servicios de NIL y el proyecto IDiLyCo.
 
 ### Contenidos
 
@@ -20,7 +20,7 @@ los servicios de Idilyco.
   [ReDoc] (para comparar) a partir de la especificación.
 - `gateway`: Plantilla [m4] para generar un servidor gateway con [nginx]. Este
   servidor expone una API unificada (especificada en este repositorio) que da
-  acceso a los distintos servicios de Idilyco.
+  acceso a los distintos servicios de IDiLyCo.
 - `docs/TechnichalReport`: Documento técnico del desarrollo del gateway y la
   API. Está escrito en [pandoc markdown], preparado para generar PDF a través de
   Latex.
@@ -46,9 +46,9 @@ mismo servidor que la UI, se puede además probar la API directamente en la web.
    desplegar el gateway. Después, ejecutar `$ npm install` para que se bajen las
    dependencias adicionales.
 2. Para generar la web estática: `$ make`. Esto genera la documentación y la
-   instala en `/var/www/idilyco-api` por defecto.
+   instala en `/var/www/nil-ws-api` por defecto.
 3. Para lanzar el gateway: `$ make nginx`. Esto (re)genera el fichero de
-   configuración en `/etc/nginx/sites-available/idilyco-gateway` y reinicia
+   configuración en `/etc/nginx/sites-available/nil-ws-gateway` y reinicia
    nginx. La primera vez, hay que crear el link apropiado en `sites-enabled`
    para que el sitio se cargue. Esta configuración también sirve la
    documentación estática si está instalada en el path por defecto.
