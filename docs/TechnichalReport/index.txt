@@ -1,3 +1,0 @@
-Introduction.md
-Background.md
-Architecture.md

@@ -1,2 +1,4 @@
+include ../local.conf
+
 all:
-	pipenv run daphne server:app
+	pipenv run daphne -p $(GRAPHQL_PORT) server:app

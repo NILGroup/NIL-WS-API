@@ -45,7 +45,7 @@ m4_define(`HOLSTEIN',`holstein.fdi.ucm.es')
 
 m4_divert
 
-m4_ifelse(`STANDALONE',`yes',`
+m4_ifelse(STANDALONE(),`yes',`
 server {
 
     listen 443 ssl default_server;
@@ -107,5 +107,8 @@ server {
         content_by_lua_file LUA_DEPLOY_PATH()/pictoresumen.lua;
     }
 
-m4_ifelse(`STANDALONE',`yes',`}')
+    # API GRAPHQL
 
+    PROXY(`GRAPHQL_PATH()/',`http://127.0.0.1:GRAPHQL_PORT()/')
+
+m4_ifelse(STANDALONE(),`yes',`}')
