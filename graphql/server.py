@@ -8,4 +8,4 @@ schema = make_executable_schema(
         tipos
         )
 
-app = GraphQL(schema, debug=True)
+app = GraphQL(schema, debug=False)

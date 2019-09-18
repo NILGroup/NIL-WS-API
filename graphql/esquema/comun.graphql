@@ -1,6 +1,11 @@
 type Query {
+
+  "Una sóla palabra."
   palabra(s: String!): Palabra!
+
+  "Un texto, que pueden ser muchas palabras y signos de puntuación."
   texto(s: String!): Texto!
+
 }
 
 type Palabra {
@@ -11,8 +16,13 @@ type Palabra {
   "Un pictograma asociado al significado de la palabra."
   pictograma: Pictograma
 
+  "La o las emociones mayoritarias de la palabra."
   emocionesMayoritarias: EmocionesMayoritarias
+
+  "Una emoción elegida por todos los evaluadores. Presente sólo si todos están de acuerdo."
   emocionConsensuada: String
+
+  "Los grados emocionales asociados a la palabra."
   gradosEmociones: GradosEmociones
 
   "Si la palabra se considera sencilla."
@@ -42,7 +52,10 @@ type Texto {
   "Todas las palabras del texto, excluidos signos de puntuación."
   palabras: [Palabra]!
 
+  "Los grados emocionales asociados al texto."
   gradosEmociones: GradosEmociones
+
+  "Una lista de palabras con contenido emocional presentes en el texto."
   palabrasEmocionales: [Palabra]!
 
   "Un resumen extractivo del texto, de longitud aproximada la especificada."

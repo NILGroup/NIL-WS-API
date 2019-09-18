@@ -1,3 +1,4 @@
+"Una puntuación numérica positiva para cada emoción."
 type GradosEmociones {
     Tristeza: Float!
     Miedo: Float!
@@ -6,6 +7,7 @@ type GradosEmociones {
     Asco: Float!
 }
 
+"Una lista con la emoción mayoritaria, o las emociones si hay más de una, junto con el grado de éstas."
 type EmocionesMayoritarias {
     emociones: [String]!
     grado: Float!
