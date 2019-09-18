@@ -41,10 +41,11 @@ m4_define(`PATCH_JSON_2',
 
 m4_define(`SESAT',`147.96.80.187')
 m4_define(`HYPATIA',`147.96.81.195')
-m4_define(`HOLSTEIN',`147.96.80.224')
+m4_define(`HOLSTEIN',`holstein.fdi.ucm.es')
 
 m4_divert
 
+m4_ifelse(`STANDALONE',`yes',`
 server {
 
     listen 443 ssl default_server;
@@ -57,6 +58,7 @@ server {
 
     root /var/www;
     index index.html;
+')
 
     m4_ifelse(ENVIRONMENT, `dev', `lua_code_cache off;')
 
@@ -75,7 +77,7 @@ server {
 
     # PT2 (resumenes)
 
-    PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://SESAT/grafeno/')
+    PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://HOLSTEIN/grafeno/')
 
     # PT3 (caa)
 
@@ -105,5 +107,5 @@ server {
         content_by_lua_file LUA_DEPLOY_PATH()/pictoresumen.lua;
     }
 
-}
+m4_ifelse(`STANDALONE',`yes',`}')
 

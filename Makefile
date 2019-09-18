@@ -15,7 +15,7 @@ LUA_SRCS:=$(wildcard $(LUA_SRC_DIR)/*)
 LUA_ALL:=$(patsubst $(LUA_SRC_DIR)/%.lua,$(LUA_DIST)/%.lua, $(LUA_SRCS)) \
 		 $(patsubst $(LUA_SRC_DIR)/%.lua.m4,$(LUA_DIST)/%.lua, $(LUA_SRCS))
 
-NGINX_SITE:=$(DIST)/idilyco-nginx
+NGINX_SITE:=$(DIST)/nil-gateway-nginx
 GATEWAY_ALL:=$(NGINX_SITE) $(LUA_ALL)
 
 PANDOC:=pandoc --resource-path=docs
