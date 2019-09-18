@@ -44,4 +44,7 @@ type Texto {
 
   gradosEmociones: GradosEmociones
   palabrasEmocionales: [Palabra]!
+
+  "Un resumen extractivo del texto, de longitud aproximada la especificada."
+  resumen(longitud: Int=100): Texto!
 }
