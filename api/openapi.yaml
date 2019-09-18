@@ -4,9 +4,9 @@ info:
   title: NIL WS API
   description: |
     Este documento describe la _API_ del grupo NIL preparada por el proyecto
-    IDiLyCo, según el estándar OpenAPI 3.0.1.
+    IDiLyCo, según el estándar OpenAPI 3.0.1
 
-    También existe un endpoint GraphQL en la url [https://holstein.fdi.ucm.es/nil-ws-api/graphql].
+    También existe un endpoint GraphQL en la url https://holstein.fdi.ucm.es/nil-ws-api/graphql
   version: 0.1.1
 
 tags:

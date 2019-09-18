@@ -18,13 +18,8 @@ LUA_ALL:=$(patsubst $(LUA_SRC_DIR)/%.lua,$(LUA_DIST)/%.lua, $(LUA_SRCS)) \
 NGINX_SITE:=$(DIST)/nil-gateway-nginx
 GATEWAY_ALL:=$(NGINX_SITE) $(LUA_ALL)
 
-PANDOC:=pandoc --resource-path=docs
 
-DOC_INDEX := $(addprefix docs/,metadata.yaml $(shell cat docs/index.txt))
-WHITEPAPER:= $(DIST)/Whitepaper.pdf
-
-
-all: $(WEB_ALL) $(GATEWAY_ALL) $(WHITEPAPER)
+all: $(WEB_ALL) $(GATEWAY_ALL)
 
 # ==============
 #    ALIASES
@@ -32,7 +27,6 @@ all: $(WEB_ALL) $(GATEWAY_ALL) $(WHITEPAPER)
 
 web: $(WEB_ALL)
 gateway: $(GATEWAY_ALL)
-docs: $(WHITEPAPER)
 
 deploy_all: deploy_web deploy_gateway
 
@@ -71,14 +65,6 @@ $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua | $(LUA_DIST)
 
 $(LUA_DIST)/%.lua: $(LUA_SRC_DIR)/%.lua.m4 | $(LUA_DIST)
 	$(M4) $< > $@
-
-
-# ===============
-#  DOCUMENTACION
-# ===============
-
-$(DIST)/Whitepaper.pdf: $(DOC_INDEX) | $(DIST)
-	$(PANDOC) -o $@ $^
 
 
 # =============
