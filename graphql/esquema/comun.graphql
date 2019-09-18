@@ -14,6 +14,24 @@ type Palabra {
   emocionesMayoritarias: EmocionesMayoritarias
   emocionConsensuada: String
   gradosEmociones: GradosEmociones
+
+  "Si la palabra se considera sencilla."
+  esSencilla: Boolean
+
+  "Lista de sinónimos de la palabra."
+  sinonimos: [Palabra]!
+
+  "Lista de antónimos de la palabra."
+  antonimos: [Palabra]!
+
+  "Definiciones posibles de la palabra."
+  definiciones: [Texto]!
+
+  "Posibles traducciones a inglés de la palabra."
+  ingles: [Palabra]!
+
+  "Forma fácil de la palabra."
+  facil: Palabra
 }
 
 type Texto {
