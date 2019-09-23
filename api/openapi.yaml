@@ -23,25 +23,17 @@ tags:
   - name: PT1
     description: |
       ## Simplificación de texto
-
-      Responsable: Susana
   - name: PT2
     description: |
       ## Resúmenes
-
-      Responsable: Alberto
   - name: PT3
     description: |
       ## CAA
-      
-      Responsable: Raquel
 
       Existe un editor para trabajar con pictos, *PICTAR*, que está ya en marcha: http://hypatia.fdi.ucm.es/pictar/
   - name: PT4
     description: |
       ## Emociones
-      
-      Responsable: Virginia
 
       Ya está en marcha la API de servicios para obtener las emociones de una
       palabra, una frase o un texto http://sesat.fdi.ucm.es/api/ o
