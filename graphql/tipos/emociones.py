@@ -31,4 +31,4 @@ def grados_de_texto (texto, *_):
 @tipo_texto.field("palabrasEmocionales")
 def grados_de_texto (texto, *_):
     r = requests.post(URL_PALABRAS_EMOCIONALES, data={'a':texto.s})
-    return [ Palabra(w) for w in r.json().get('palabras', []) ]
+    return [ Palabra(s=w) for w in r.json().get('palabras', []) ]

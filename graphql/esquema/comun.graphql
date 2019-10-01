@@ -13,6 +13,15 @@ type Palabra {
   "La representación textual de la palabra."
   s: String!
 
+  "Forma de diccionario o lema de la palabra."
+  lema: String!
+  "Parte de la oración de la palabra (nombre, verbo...)."
+  pos: String!
+  "Masculino, femenino, o nada, según el caso."
+  genero: String
+  "Singular, plural, o nada, según el caso."
+  numero: String
+
   "Un pictograma asociado al significado de la palabra."
   pictograma: Pictograma
 

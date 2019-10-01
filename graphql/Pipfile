@@ -8,6 +8,7 @@ ariadne = "*"
 daphne = "*"
 requests = "*"
 regex = "*"
+spacy = ">=2"
 
 [dev-packages]
 
