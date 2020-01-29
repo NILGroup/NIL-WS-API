@@ -8,4 +8,5 @@ schema = make_executable_schema(
         tipos
         )
 
+# To run e.g.: daphne -p port server:app
 app = GraphQL(schema, debug=False)
