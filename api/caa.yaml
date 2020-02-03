@@ -62,3 +62,25 @@ PictoFrase:
                         items:
                           type: number
                           description: El identificador del pictograma.
+
+PalabraPicto:
+  get:
+    summary: Dado un pictograma, devuelve los posibles significados (palabras) asociados.
+    tags:
+      - Pictograma
+      - PT3
+    parameters:
+      - $ref: "comunes.yaml#/components/parameters/PictogramaEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  meanings:
+                    type: array
+                    description: Lista de significados asociados al pictograma.
+                    items:
+                      type: string
+                      description: La palabra que representa el significado.

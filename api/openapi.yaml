@@ -20,6 +20,11 @@ tags:
       ## Servicios de textos
 
       Estos servicios devuelven información relativa a un texto o serie de palabras.
+  - name: Pictograma
+    description: |
+      ## Servicios de pictogramas
+      
+      Estos servicios devuelven información relativa a un pictograma.
   - name: PT1
     description: |
       ## Simplificación de texto
@@ -79,3 +84,6 @@ paths:
   /texto/resumen:
     $ref: 'grafeno.yaml#/Resumenes'
 
+  # PICTOGRAMAS
+  /pictograma/{pictograma}/palabras:
+    $ref: 'caa.yaml#/PalabraPicto'

@@ -7,6 +7,13 @@ components:
       required: true
       schema:
         type: string
+    PictogramaEnUrl:
+      name: pictograma
+      description: el identificador numérico de un pictograma
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     TextoEnBodyJSON:
       required: true

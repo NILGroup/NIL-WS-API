@@ -10,6 +10,7 @@ m4_define(`PROXY',
 )
 
 m4_define(`SERVICIO_PALABRA',PROXY(~ ^API_PATH()/palabra/([^/]+)/$1$,$2,$3))
+m4_define(`SERVICIO_PICTO',PROXY(~ ^API_PATH()/pictograma/([^/]+)/$1$,$2,$3))
 
 m4_dnl 4 argumentos:
 m4_dnl - path en la api
@@ -83,6 +84,9 @@ server {
 
     PATCH_JSON(`palabra/([^/]+)/pictograma', `caa_picto.lua', `picto/', `http://SESAT:8080/servicios/rest/pictograma/palabra/')
     PATCH_JSON(`texto/pictogramas', `caa_traducir.lua', `traducir/', `http://HYPATIA:5223/PICTAR/traducir/')
+
+    SERVICIO_PICTO(`palabras', `https://HOLSTEIN',
+        `rewrite ^.*/pictograma/([^/]+).*$ /tfg-pict2text/picto/getPictoTranslate?pictoId=`$'1 break;')
 
     # PT4 (emociones)
     
