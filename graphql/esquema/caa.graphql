@@ -9,4 +9,7 @@ type Pictograma {
 
     "Identificador único del pictograma."
     id: String!
+
+    "Lista de palabras asociadas al pictograma."
+    palabras: [Palabra]!
 }

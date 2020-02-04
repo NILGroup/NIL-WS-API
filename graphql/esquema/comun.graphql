@@ -6,6 +6,9 @@ type Query {
   "Un texto, que pueden ser muchas palabras y signos de puntuación."
   texto(s: String!): Texto!
 
+  "Un pictograma dado su id."
+  pictograma(id: String!): Pictograma!
+
 }
 
 type Palabra {

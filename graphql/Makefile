@@ -1,4 +1,4 @@
 include ../local.conf
 
 all:
-	pipenv run daphne -p $(GRAPHQL_PORT) server:app
+	poetry run daphne -p $(GRAPHQL_PORT) server:app
