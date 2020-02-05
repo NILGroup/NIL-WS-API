@@ -80,6 +80,8 @@ server {
 
     APRENDEFACIL_API(hiperonimos_faciles, hiper, easyhyperonym)
     APRENDEFACIL_API(hiponimos_faciles, hipo, easyhyponym)
+    APRENDEFACIL_API(metaforas, meta, metaphor)
+    APRENDEFACIL_API(similes, simil, simil)
 
     # PT2 (resumenes)
 

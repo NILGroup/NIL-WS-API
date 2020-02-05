@@ -1,14 +1,23 @@
 local json = require "LUA_DEPLOY_PATH()/JSON"
 local reply = function (tabla) ngx.say(json:encode(tabla)) end
 
+-- Nombre del servicio interno de nginx
 servicios = { hiperonimos_faciles = 'hiper',
               hiponimos_faciles = 'hipo',
+              metaforas = 'meta',
+              similes = 'simil',
             }
+-- Clave con que responde el servicio de AprendeFácil
 respuestas = { hiperonimos_faciles = 'hyperonyms',
                hiponimos_faciles = 'hyponyms',
+               metaforas = 'metaphor',
+               similes = 'simil',
              }
+-- Clave con que respondemos nosotros en la OpenAPI
 soluciones = { hiperonimos_faciles = 'hiperonimos',
                hiponimos_faciles = 'hiponimos',
+               metaforas = 'metaforas',
+               similes = 'similes',
              }
 niveles = { facil = '1', medio = '2', avanzado = '3' }
 

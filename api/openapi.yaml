@@ -75,6 +75,10 @@ paths:
     $ref: 'simplificacion.yaml#/Hiperonimos'
   /palabra/{palabra}/hiponimos_faciles:
     $ref: 'simplificacion.yaml#/Hiponimos'
+  /palabra/{palabra}/metaforas:
+    $ref: 'simplificacion.yaml#/Metaforas'
+  /palabra/{palabra}/similes:
+    $ref: 'simplificacion.yaml#/Similes'
 
   # TEXTOS
   /texto/pictogramas:
