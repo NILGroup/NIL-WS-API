@@ -73,6 +73,8 @@ paths:
     $ref: 'emociones.yaml#/GradosPalabra'
   /palabra/{palabra}/hiperonimos_faciles:
     $ref: 'simplificacion.yaml#/Hiperonimos'
+  /palabra/{palabra}/hiponimos_faciles:
+    $ref: 'simplificacion.yaml#/Hiponimos'
 
   # TEXTOS
   /texto/pictogramas:

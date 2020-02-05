@@ -1,9 +1,15 @@
 local json = require "LUA_DEPLOY_PATH()/JSON"
 local reply = function (tabla) ngx.say(json:encode(tabla)) end
 
-servicios = { hiperonimos_faciles = 'hiper' }
-respuestas = { hiperonimos_faciles = 'hyperonyms' }
-soluciones = { hiperonimos_faciles = 'hiperonimos' }
+servicios = { hiperonimos_faciles = 'hiper',
+              hiponimos_faciles = 'hipo',
+            }
+respuestas = { hiperonimos_faciles = 'hyperonyms',
+               hiponimos_faciles = 'hyponyms',
+             }
+soluciones = { hiperonimos_faciles = 'hiperonimos',
+               hiponimos_faciles = 'hiponimos',
+             }
 niveles = { facil = '1', medio = '2', avanzado = '3' }
 
 nivel = "facil"

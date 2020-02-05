@@ -149,3 +149,25 @@ Hiperonimos:
                     type: string
       '400':
         $ref: "comunes.yaml#/components/responses/BadRequest"
+Hiponimos:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de hipónimos fáciles.
+    tags:
+      - PT1
+      - Palabra
+    parameters:
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
+      - $ref: "comunes.yaml#/components/parameters/NivelEnQuery"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hiponimos:
+                  type: array
+                  items:
+                    type: string
+      '400':
+        $ref: "comunes.yaml#/components/responses/BadRequest"
