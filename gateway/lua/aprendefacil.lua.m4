@@ -6,6 +6,7 @@ servicios = { hiperonimos_faciles = 'hiper',
               hiponimos_faciles = 'hipo',
               metaforas = 'meta',
               similes = 'simil',
+              ejemplos = 'ejemplos',
             }
 -- Clave con que responde el servicio de AprendeFácil
 respuestas = { hiperonimos_faciles = 'hyperonyms',
@@ -18,6 +19,7 @@ soluciones = { hiperonimos_faciles = 'hiperonimos',
                hiponimos_faciles = 'hiponimos',
                metaforas = 'metaforas',
                similes = 'similes',
+              ejemplos = 'ejemplos',
              }
 niveles = { facil = '1', medio = '2', avanzado = '3' }
 
@@ -38,14 +40,37 @@ response = ngx.location.capture('INTERNAL_API_PATH()/aprendefacil_'..servicios[s
 
 body = json:decode(response.body)
 sol = {}
-respuesta = respuestas[servicio]
-for i = 2, #body do
-    acc = body[i][respuesta]
-    if acc ~= nil then
-        for j = 1, #acc do
-            sol[#sol+1] = acc[j]
+
+if servicio == 'ejemplos' then
+
+    meta = body[2].metaphor
+    for i = 1, #meta do
+        ex = meta[i].example
+        for j = 1, #ex do
+            sol[#sol+1] = ex[j]
         end
     end
+
+    simil = body[3].simil
+    for i = 1, #simil do
+        ex = simil[i].example
+        for j = 1, #ex do
+            sol[#sol+1] = ex[j]
+        end
+    end
+
+else 
+
+    respuesta = respuestas[servicio]
+    for i = 2, #body do
+        acc = body[i][respuesta]
+        if acc ~= nil then
+            for j = 1, #acc do
+                sol[#sol+1] = acc[j]
+            end
+        end
+    end
+
 end
 
 reply{ ok=true, [soluciones[servicio]]=sol }

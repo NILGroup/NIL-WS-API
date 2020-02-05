@@ -79,6 +79,8 @@ paths:
     $ref: 'simplificacion.yaml#/Metaforas'
   /palabra/{palabra}/similes:
     $ref: 'simplificacion.yaml#/Similes'
+  /palabra/{palabra}/ejemplos:
+    $ref: 'simplificacion.yaml#/Ejemplos'
 
   # TEXTOS
   /texto/pictogramas:

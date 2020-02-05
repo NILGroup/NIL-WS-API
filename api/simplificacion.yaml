@@ -187,7 +187,7 @@ Metaforas:
             schema:
               type: object
               properties:
-                hiponimos:
+                metaforas:
                   type: array
                   items:
                     type: string
@@ -209,7 +209,29 @@ Similes:
             schema:
               type: object
               properties:
-                hiponimos:
+                similes:
+                  type: array
+                  items:
+                    type: string
+      '400':
+        $ref: "comunes.yaml#/components/responses/BadRequest"
+Ejemplos:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de ejemplos de uso de palabras relacionadas.
+    tags:
+      - PT1
+      - Palabra
+    parameters:
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
+      - $ref: "comunes.yaml#/components/parameters/NivelEnQuery"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ejemplos:
                   type: array
                   items:
                     type: string
