@@ -10,6 +10,7 @@ URL_HIPERONIMOS = (URL_APRENDEFACIL % 'easyhyperonym') + QUERY
 URL_HIPONIMOS = (URL_APRENDEFACIL % 'easyhyponym') + QUERY
 URL_METAFORAS = (URL_APRENDEFACIL % 'metaphor') + QUERY
 URL_SIMILES = (URL_APRENDEFACIL % 'simil') + QUERY
+URL_EJEMPLOS = (URL_APRENDEFACIL % 'def_example') + QUERY
 
 def generico (URL, clave, palabra, nivel, objeto):
     r = requests.get(URL % (palabra.s, niveles[nivel]))
@@ -30,3 +31,10 @@ def metaforas (palabra, *_, nivel):
 @tipo_palabra.field("similes")
 def similes (palabra, *_, nivel):
     return generico(URL_SIMILES, "simil", palabra, nivel, Texto)
+
+@tipo_palabra.field("ejemplos")
+def ejemplos (palabra, *_, nivel):
+    r = requests.get(URL_EJEMPLOS % (palabra.s, niveles[nivel]))
+    resp = r.json()
+    return ([Texto(s) for meta in resp[1].get('metaphor') for s in meta.get('example', [])] +
+            [Texto(s) for simil in resp[2].get('simil') for s in simil.get('example', [])])

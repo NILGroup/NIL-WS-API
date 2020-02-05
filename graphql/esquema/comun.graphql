@@ -64,6 +64,9 @@ type Palabra {
 
   "Símiles de la palabra."
   similes(nivel: Nivel = FACIL): [Texto]!
+
+  "Ejemplos de uso de términos similares."
+  ejemplos(nivel: Nivel = FACIL): [Texto]!
 }
 
 type Texto {
