@@ -11,6 +11,13 @@ type Query {
 
 }
 
+"Niveles de complejidad de palabras."
+enum Nivel {
+  FACIL,
+  MEDIO,
+  AVANZADO
+}
+
 type Palabra {
 
   "La representación textual de la palabra."
@@ -45,6 +52,18 @@ type Palabra {
 
   "Forma fácil de la palabra."
   facil: Palabra
+
+  "Hiperónimos fáciles de la palabra."
+  hiperonimos(nivel: Nivel = FACIL): [Palabra]!
+
+  "Hipónimos fáciles de la palabra."
+  hiponimos(nivel: Nivel = FACIL): [Palabra]!
+
+  "Metáforas para el significado de la palabra."
+  metaforas(nivel: Nivel = FACIL): [Texto]!
+
+  "Símiles de la palabra."
+  similes(nivel: Nivel = FACIL): [Texto]!
 }
 
 type Texto {
