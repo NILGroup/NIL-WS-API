@@ -76,6 +76,8 @@ server {
     SIMPLIFICATION_API(traducciones, ingles)
     SIMPLIFICATION_API(conversion_a_facil, conversion)
 
+    PATCH_JSON(`palabra/([^/]+)/hiperonimos_faciles', `aprendefacil.lua', `aprendefacil_hiper/', `https://HOLSTEIN/tfg-analogias/easyhyperonym/json/')
+
     # PT2 (resumenes)
 
     PATCH_JSON(`texto/resumen', `resumenes.lua', `grafeno/', `https://HOLSTEIN/grafeno/')

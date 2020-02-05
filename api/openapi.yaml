@@ -71,6 +71,8 @@ paths:
     $ref: 'emociones.yaml#/ConsensuadaPalabra'
   /palabra/{palabra}/grados_emociones:
     $ref: 'emociones.yaml#/GradosPalabra'
+  /palabra/{palabra}/hiperonimos_faciles:
+    $ref: 'simplificacion.yaml#/Hiperonimos'
 
   # TEXTOS
   /texto/pictogramas:

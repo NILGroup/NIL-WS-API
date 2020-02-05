@@ -121,3 +121,22 @@ Conversion:
               properties:
                 conversion:
                   type: string
+Hiperonimos:
+  get:
+    summary: Dada una palabra en castellano, devuelve una lista de hiperónimos fáciles.
+    tags:
+      - PT1
+      - Palabra
+    parameters:
+      - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hiperonimos:
+                  type: array
+                  items:
+                    type: string
