@@ -129,6 +129,13 @@ Hiperonimos:
       - Palabra
     parameters:
       - $ref: "comunes.yaml#/components/parameters/PalabraEnUrl"
+      - name: nivel
+        in: query
+        description: Nivel de simplificación de los hiperónimos.
+        schema:
+          type: string
+          enum: [ facil, medio, avanzado ]
+          default: facil
     responses:
       '200':
         content:
@@ -140,3 +147,5 @@ Hiperonimos:
                   type: array
                   items:
                     type: string
+      '400':
+        $ref: "comunes.yaml#/components/responses/BadRequest"

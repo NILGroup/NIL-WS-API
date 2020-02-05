@@ -15,6 +15,10 @@ end
 
 palabra, servicio = ngx.var.uri:match"palabra/([^/]+)/([^/]+)"
 
+if servicios[servicio] == nil or niveles[nivel] == nil then
+    ngx.exit(ngx.HTTP_BAD_REQUEST)
+end
+
 response = ngx.location.capture('INTERNAL_API_PATH()/aprendefacil_'..servicios[servicio]..'/word='..palabra..'&level='..niveles[nivel])
 
 body = json:decode(response.body)

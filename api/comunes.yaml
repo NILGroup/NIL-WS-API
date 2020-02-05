@@ -26,3 +26,6 @@ components:
             properties:
               texto:
                 type: string
+  responses:
+    BadRequest:
+      description: Error en los parámetros de la llamada a la API
